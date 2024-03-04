@@ -119,7 +119,7 @@ public class ArticuloJpaController implements Serializable {
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            Articulo persistentArticulo = em.find(Articulo.class, articulo.getIdArituclo());
+            Articulo persistentArticulo = em.find(Articulo.class, articulo.getIdArticulo());
             Grupo grupoOld = persistentArticulo.getGrupo();
             Grupo grupoNew = articulo.getGrupo();
             LinkedList<ItemDevolucion> itemDevolOld = persistentArticulo.getItemDevol();
@@ -217,7 +217,7 @@ public class ArticuloJpaController implements Serializable {
         } catch (Exception ex) {
             String msg = ex.getLocalizedMessage();
             if (msg == null || msg.length() == 0) {
-                int id = articulo.getIdArituclo();
+                int id = articulo.getIdArticulo();
                 if (findArticulo(id) == null) {
                     throw new NonexistentEntityException("The articulo with id " + id + " no longer exists.");
                 }
@@ -238,7 +238,7 @@ public class ArticuloJpaController implements Serializable {
             Articulo articulo;
             try {
                 articulo = em.getReference(Articulo.class, id);
-                articulo.getIdArituclo();
+                articulo.getIdArticulo();
             } catch (EntityNotFoundException enfe) {
                 throw new NonexistentEntityException("The articulo with id " + id + " no longer exists.", enfe);
             }

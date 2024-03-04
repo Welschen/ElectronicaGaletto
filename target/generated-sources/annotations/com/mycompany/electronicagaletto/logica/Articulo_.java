@@ -9,10 +9,11 @@ import javax.persistence.metamodel.ListAttribute;
 import javax.persistence.metamodel.SingularAttribute;
 import javax.persistence.metamodel.StaticMetamodel;
 
-@Generated(value="org.eclipse.persistence.internal.jpa.modelgen.CanonicalModelProcessor", date="2024-01-08T15:34:24", comments="EclipseLink-2.7.12.v20230209-rNA")
+@Generated(value="org.eclipse.persistence.internal.jpa.modelgen.CanonicalModelProcessor", date="2024-03-04T20:51:13", comments="EclipseLink-2.7.12.v20230209-rNA")
 @StaticMetamodel(Articulo.class)
 public class Articulo_ { 
 
+    public static volatile SingularAttribute<Articulo, Integer> idArticulo;
     public static volatile SingularAttribute<Articulo, Double> precio;
     public static volatile ListAttribute<Articulo, ItemDevolucion> itemDevol;
     public static volatile ListAttribute<Articulo, ItemVenta> itemVta;
@@ -20,7 +21,6 @@ public class Articulo_ {
     public static volatile SingularAttribute<Articulo, Double> costo;
     public static volatile SingularAttribute<Articulo, String> codBarra;
     public static volatile SingularAttribute<Articulo, Grupo> grupo;
-    public static volatile SingularAttribute<Articulo, Integer> idArituclo;
     public static volatile SingularAttribute<Articulo, Integer> stock;
     public static volatile ListAttribute<Articulo, ItemPresupuesto> itemPresu;
     public static volatile SingularAttribute<Articulo, String> nombreArticulo;

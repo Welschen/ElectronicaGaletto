@@ -25,12 +25,14 @@ public class Cliente implements Serializable {
     private  LinkedList<Pago> listaPagos;
     @OneToMany (mappedBy="client")
     private  LinkedList<Venta> listaVentas;
+    @OneToMany (mappedBy="cliente")
+    private LinkedList<Devolucion> listaDevolucion;
     private boolean estado;
    
     public Cliente() {
     }
 
-    public Cliente(int idCliente, String apellido, String nombre, int dni, String email, String telefono, Domicilio domi, LinkedList<Pago> listaPagos, LinkedList<Venta> listaVentas, boolean estado) {
+    public Cliente(int idCliente, String apellido, String nombre, int dni, String email, String telefono, Domicilio domi, LinkedList<Pago> listaPagos, LinkedList<Venta> listaVentas, LinkedList<Devolucion> listaDevolucion, boolean estado) {
         this.idCliente = idCliente;
         this.apellido = apellido;
         this.nombre = nombre;
@@ -40,8 +42,18 @@ public class Cliente implements Serializable {
         this.domi = domi;
         this.listaPagos = listaPagos;
         this.listaVentas = listaVentas;
+        this.listaDevolucion = listaDevolucion;
         this.estado = estado;
     }
+
+    public LinkedList<Devolucion> getListaDevolucion() {
+        return listaDevolucion;
+    }
+
+    public void setListaDevolucion(LinkedList<Devolucion> listaDevolucion) {
+        this.listaDevolucion = listaDevolucion;
+    }
+
 
     public boolean isEstado() {
         return estado;
@@ -73,6 +85,11 @@ public class Cliente implements Serializable {
 
     public void setNombre(String nombre) {
         this.nombre = nombre;
+    }
+     @Override
+    public String toString() {
+        String datos = dni+ " - "+nombre +" "+ apellido;
+        return  datos;
     }
 
     public int getDni() {
@@ -124,10 +141,11 @@ public class Cliente implements Serializable {
         this.listaVentas = listaVentas;
     }
 
-   
-
-   
-
-   
-
+    public Object getEstado() {
+        if (isEstado()==true){
+            return "Activo";
+        }else{
+        return "Inactivo";
+        }
+    }
 }

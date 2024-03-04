@@ -1,14 +1,29 @@
 package com.mycompany.electronicagaletto.vista;
 
+import com.mycompany.electronicagaletto.ElectronicaGaletto;
+import com.mycompany.electronicagaletto.logica.ControladoraLogica;
+import com.mycompany.electronicagaletto.logica.Grupo;
+import com.mycompany.electronicagaletto.logica.Usuario;
 import java.awt.Color;
+import java.util.List;
+import javax.swing.JDialog;
+import javax.swing.JOptionPane;
+import javax.swing.RowFilter;
+import javax.swing.SwingConstants;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableRowSorter;
 
 public class VistaGrupos extends javax.swing.JPanel {
-
-    
-    public VistaGrupos() {
+    private TableRowSorter<DefaultTableModel> sorter;
+    ControladoraLogica control = null;
+    Usuario usr;
+    public VistaGrupos( Usuario usr) {
+        control = new ControladoraLogica();
+        this.usr=usr;
         initComponents();
         initStyles();
+        cargarTabla();
     }
     private void initStyles() {
         title.putClientProperty("FlatLaf.styleClass", "h1");
@@ -23,8 +38,37 @@ public class VistaGrupos extends javax.swing.JPanel {
                return false; 
             }
     };
-    String titulos[] = {"Nombre", "Precio", "Stock", "Grupo", "Código de barras"};
+    String titulos[] = {"Identificador","Nombre", "Bajo Stock", "Beneficio", "Estado"};
     datosTabla.setColumnIdentifiers(titulos);
+     //traer datos desde la base
+    List <Grupo> listaGrupos = control.traerGrupos();
+    
+        //recorrer la lista y mostrar datos en la tabla
+    if (listaGrupos!=null){
+        for (Grupo grupo : listaGrupos) {
+            Object[] objeto = {grupo.getIdGrupo(),grupo.getNombreGrupo(), grupo.getBajoStock(), grupo.getBeneficio(),
+            grupo.getEstado()};
+            
+            datosTabla.addRow(objeto);
+        }   
+    }
+    tablaGrupos.setModel(datosTabla);
+    DefaultTableCellRenderer alinearDerecha = new DefaultTableCellRenderer();
+        alinearDerecha.setHorizontalAlignment(SwingConstants.RIGHT);
+        DefaultTableCellRenderer alinearCentro = new DefaultTableCellRenderer();
+        alinearCentro.setHorizontalAlignment(SwingConstants.CENTER);
+        DefaultTableCellRenderer alinearIzquierda = new DefaultTableCellRenderer();
+        alinearIzquierda.setHorizontalAlignment(SwingConstants.LEFT);
+        // Aplicar las alineaciones a las columnas específicas
+        tablaGrupos.getColumnModel().getColumn(0).setCellRenderer(alinearCentro);
+        tablaGrupos.getColumnModel().getColumn(1).setCellRenderer(alinearIzquierda);
+        tablaGrupos.getColumnModel().getColumn(2).setCellRenderer(alinearCentro);
+        tablaGrupos.getColumnModel().getColumn(3).setCellRenderer(alinearDerecha);
+        tablaGrupos.getColumnModel().getColumn(4).setCellRenderer(alinearCentro);
+
+    tablaGrupos.setAutoCreateRowSorter(true);
+    sorter = new TableRowSorter<>(datosTabla);
+    tablaGrupos.setRowSorter(sorter);
     }
    
     @SuppressWarnings("unchecked")
@@ -34,9 +78,8 @@ public class VistaGrupos extends javax.swing.JPanel {
         jPanel1 = new javax.swing.JPanel();
         title = new javax.swing.JLabel();
         txtBuscar = new javax.swing.JTextField();
-        btnBuscar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tablaGrupos = new javax.swing.JTable();
         btnEditar = new javax.swing.JButton();
         txtNuevo = new javax.swing.JButton();
         txtBajaAlta = new javax.swing.JButton();
@@ -50,16 +93,16 @@ public class VistaGrupos extends javax.swing.JPanel {
         title.setForeground(new java.awt.Color(0, 0, 0));
         title.setText("Grupos");
 
+        txtBuscar.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         txtBuscar.setBorder(null);
+        txtBuscar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtBuscarKeyReleased(evt);
+            }
+        });
 
-        btnBuscar.setBackground(new java.awt.Color(13, 71, 161));
-        btnBuscar.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        btnBuscar.setForeground(new java.awt.Color(255, 255, 255));
-        btnBuscar.setText("Buscar");
-        btnBuscar.setBorder(null);
-        btnBuscar.setBorderPainted(false);
-
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tablaGrupos.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        tablaGrupos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {},
                 {},
@@ -70,7 +113,7 @@ public class VistaGrupos extends javax.swing.JPanel {
 
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tablaGrupos);
 
         btnEditar.setBackground(new java.awt.Color(13, 71, 161));
         btnEditar.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -99,7 +142,7 @@ public class VistaGrupos extends javax.swing.JPanel {
         txtBajaAlta.setBackground(new java.awt.Color(13, 71, 161));
         txtBajaAlta.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         txtBajaAlta.setForeground(new java.awt.Color(255, 255, 255));
-        txtBajaAlta.setText("Baja/Alta");
+        txtBajaAlta.setText("Cambiar estado");
         txtBajaAlta.setBorder(null);
         txtBajaAlta.setBorderPainted(false);
         txtBajaAlta.addActionListener(new java.awt.event.ActionListener() {
@@ -115,31 +158,30 @@ public class VistaGrupos extends javax.swing.JPanel {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(txtBajaAlta, javax.swing.GroupLayout.DEFAULT_SIZE, 134, Short.MAX_VALUE)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnEditar, javax.swing.GroupLayout.DEFAULT_SIZE, 134, Short.MAX_VALUE)
-                        .addGap(385, 385, 385)
-                        .addComponent(txtNuevo, javax.swing.GroupLayout.DEFAULT_SIZE, 134, Short.MAX_VALUE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(txtBuscar, javax.swing.GroupLayout.DEFAULT_SIZE, 665, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(title, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(621, 621, 621)))
-                .addContainerGap())
+                        .addGap(627, 627, 627))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(txtBajaAlta, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(txtNuevo, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                                .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 790, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(21, 21, 21))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(title, javax.swing.GroupLayout.DEFAULT_SIZE, 29, Short.MAX_VALUE)
+                .addComponent(title, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(btnBuscar, javax.swing.GroupLayout.DEFAULT_SIZE, 26, Short.MAX_VALUE)
-                    .addComponent(txtBuscar))
+                .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 360, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
@@ -163,24 +205,54 @@ public class VistaGrupos extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
-        // TODO add your handling code here:
+        //Verificar q la tabla no este vacia
+        if (tablaGrupos.getRowCount()>0){
+            //verificar q haya seleccionado 1
+            if (tablaGrupos.getSelectedRow()!=-1){
+              //llamar a nuevo jpanel pasando el id del objeto seleccionado
+              int id = Integer.parseInt(String.valueOf(tablaGrupos.getValueAt(tablaGrupos.getSelectedRow(),0)));
+              ElectronicaGaletto.ShowJPanel(new EditGrupo(id,usr));
+            }
+        }
     }//GEN-LAST:event_btnEditarActionPerformed
 
     private void txtNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNuevoActionPerformed
-        // TODO add your handling code here:
+        ElectronicaGaletto.ShowJPanel(new AltasGrupos());
     }//GEN-LAST:event_txtNuevoActionPerformed
 
     private void txtBajaAltaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtBajaAltaActionPerformed
-        // TODO add your handling code here:
+        //Verificar q la tabla no este vacia
+        if (tablaGrupos.getRowCount()>0){
+            //verificar q haya seleccionado 1
+            if (tablaGrupos.getSelectedRow()!=-1){
+              //llamar a nuevo jpanel pasando el id del objeto seleccionado
+              int id = Integer.parseInt(String.valueOf(tablaGrupos.getValueAt(tablaGrupos.getSelectedRow(),0)));
+              control.editarEstadoGrupo(id);
+                
+        JOptionPane optionPane = new JOptionPane("Se modificó correctamente");
+        optionPane.setMessageType(JOptionPane.INFORMATION_MESSAGE);
+        JDialog dialog = optionPane.createDialog("Guardado Exitoso");
+        dialog.setAlwaysOnTop(true);
+        dialog.setVisible(true);
+              ElectronicaGaletto.ShowJPanel(new VistaGrupos(usr));
+            }
+        }
     }//GEN-LAST:event_txtBajaAltaActionPerformed
 
+    private void txtBuscarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarKeyReleased
+        filtrar();
+    }//GEN-LAST:event_txtBuscarKeyReleased
+     private void filtrar(){
+        String texto = txtBuscar.getText();
+        String filtro = "(?i)" + texto; // agrega la flag (?i)
+        sorter.setRowFilter(RowFilter.regexFilter(filtro));
+    }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnBuscar;
     private javax.swing.JButton btnEditar;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable tablaGrupos;
     private javax.swing.JLabel title;
     private javax.swing.JButton txtBajaAlta;
     private javax.swing.JTextField txtBuscar;

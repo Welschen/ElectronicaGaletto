@@ -14,7 +14,7 @@ import javax.persistence.OneToMany;
 public class Articulo implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private int idArituclo;
+    private int idArticulo;
     private String codBarra;
     private double costo;
     private String nombreArticulo;
@@ -33,8 +33,8 @@ public class Articulo implements Serializable {
     public Articulo() {
     }
 
-    public Articulo(int idArituclo, String codBarra, double costo, String nombreArticulo, double precio, int stock, LinkedList<ItemDevolucion> itemDevol, LinkedList<ItemVenta> itemVta, LinkedList<ItemPresupuesto> itemPresu, Grupo grupo, boolean estado) {
-        this.idArituclo = idArituclo;
+    public Articulo(int idArticulo, String codBarra, double costo, String nombreArticulo, double precio, int stock, LinkedList<ItemDevolucion> itemDevol, LinkedList<ItemVenta> itemVta, LinkedList<ItemPresupuesto> itemPresu, Grupo grupo, boolean estado) {
+        this.idArticulo = idArticulo;
         this.codBarra = codBarra;
         this.costo = costo;
         this.nombreArticulo = nombreArticulo;
@@ -46,24 +46,31 @@ public class Articulo implements Serializable {
         this.grupo = grupo;
         this.estado = estado;
     }
-
+    
     public boolean isEstado() {
         return estado;
+    }
+    
+    public String getEstado(){
+        if (isEstado()==true){
+            return "Activo";
+        }else{
+        return "Inactivo";
+        }
     }
 
     public void setEstado(boolean estado) {
         this.estado = estado;
     }
-    
-    public int getIdArituclo() {
-        return idArituclo;
+
+    public int getIdArticulo() {
+        return idArticulo;
     }
 
-    public void setIdArituclo(int idArituclo) {
-        this.idArituclo = idArituclo;
+    public void setIdArticulo(int idArticulo) {
+        this.idArticulo = idArticulo;
     }
-
-
+ 
     public String getCodBarra() {
         return codBarra;
     }
@@ -127,8 +134,6 @@ public class Articulo implements Serializable {
     public void setItemPresu(LinkedList<ItemPresupuesto> itemPresu) {
         this.itemPresu = itemPresu;
     }
-
-
 
     public Grupo getGrupo() {
         return grupo;

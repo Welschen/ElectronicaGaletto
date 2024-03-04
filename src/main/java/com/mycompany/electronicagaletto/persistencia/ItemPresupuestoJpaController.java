@@ -38,7 +38,7 @@ public class ItemPresupuestoJpaController implements Serializable {
             em.getTransaction().begin();
             Articulo artic = itemPresupuesto.getArtic();
             if (artic != null) {
-                artic = em.getReference(artic.getClass(), artic.getIdArituclo());
+                artic = em.getReference(artic.getClass(), artic.getIdArticulo());
                 itemPresupuesto.setArtic(artic);
             }
             Presupuesto presupuest = itemPresupuesto.getPresupuest();
@@ -74,7 +74,7 @@ public class ItemPresupuestoJpaController implements Serializable {
             Presupuesto presupuestOld = persistentItemPresupuesto.getPresupuest();
             Presupuesto presupuestNew = itemPresupuesto.getPresupuest();
             if (articNew != null) {
-                articNew = em.getReference(articNew.getClass(), articNew.getIdArituclo());
+                articNew = em.getReference(articNew.getClass(), articNew.getIdArticulo());
                 itemPresupuesto.setArtic(articNew);
             }
             if (presupuestNew != null) {

@@ -37,7 +37,7 @@ public class ItemVentaJpaController implements Serializable {
             em.getTransaction().begin();
             Articulo articu = itemVenta.getArticu();
             if (articu != null) {
-                articu = em.getReference(articu.getClass(), articu.getIdArituclo());
+                articu = em.getReference(articu.getClass(), articu.getIdArticulo());
                 itemVenta.setArticu(articu);
             }
             em.persist(itemVenta);
@@ -62,7 +62,7 @@ public class ItemVentaJpaController implements Serializable {
             Articulo articuOld = persistentItemVenta.getArticu();
             Articulo articuNew = itemVenta.getArticu();
             if (articuNew != null) {
-                articuNew = em.getReference(articuNew.getClass(), articuNew.getIdArituclo());
+                articuNew = em.getReference(articuNew.getClass(), articuNew.getIdArticulo());
                 itemVenta.setArticu(articuNew);
             }
             itemVenta = em.merge(itemVenta);

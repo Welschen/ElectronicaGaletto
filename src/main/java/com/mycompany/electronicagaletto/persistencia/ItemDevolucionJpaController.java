@@ -38,7 +38,7 @@ public class ItemDevolucionJpaController implements Serializable {
             em.getTransaction().begin();
             Articulo arti = itemDevolucion.getArti();
             if (arti != null) {
-                arti = em.getReference(arti.getClass(), arti.getIdArituclo());
+                arti = em.getReference(arti.getClass(), arti.getIdArticulo());
                 itemDevolucion.setArti(arti);
             }
             Devolucion devo = itemDevolucion.getDevo();
@@ -74,7 +74,7 @@ public class ItemDevolucionJpaController implements Serializable {
             Devolucion devoOld = persistentItemDevolucion.getDevo();
             Devolucion devoNew = itemDevolucion.getDevo();
             if (artiNew != null) {
-                artiNew = em.getReference(artiNew.getClass(), artiNew.getIdArituclo());
+                artiNew = em.getReference(artiNew.getClass(), artiNew.getIdArticulo());
                 itemDevolucion.setArti(artiNew);
             }
             if (devoNew != null) {

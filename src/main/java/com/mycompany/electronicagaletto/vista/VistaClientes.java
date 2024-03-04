@@ -1,16 +1,30 @@
 package com.mycompany.electronicagaletto.vista;
 
 import com.mycompany.electronicagaletto.ElectronicaGaletto;
+import com.mycompany.electronicagaletto.logica.Cliente;
+import com.mycompany.electronicagaletto.logica.ControladoraLogica;
+import com.mycompany.electronicagaletto.logica.Usuario;
 import java.awt.Color;
+import java.util.List;
+import javax.swing.JDialog;
+import javax.swing.JOptionPane;
+import javax.swing.RowFilter;
+import javax.swing.SwingConstants;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
-
+import javax.swing.table.TableRowSorter;
 
 public class VistaClientes extends javax.swing.JPanel {
-
+    private TableRowSorter<DefaultTableModel> sorter;
+    ControladoraLogica control = null;
+    Usuario usr;
     
-    public VistaClientes() {
+    public VistaClientes( Usuario usr) {
+        control = new ControladoraLogica();
         initComponents();
         initStyles();
+        cargarTabla();
+        this.usr=usr;
     }
     private void initStyles() {
         title.putClientProperty("FlatLaf.styleClass", "h1");
@@ -25,8 +39,38 @@ public class VistaClientes extends javax.swing.JPanel {
                return false; 
             }
     };
-    String titulos[] = {"Nombre", "Precio", "Stock", "Grupo", "Código de barras"};
+    String titulos[] = {"Identificador", "Apellido", "Nombre", "DNI", "Email", "Telefono", "Estado"};
     datosTabla.setColumnIdentifiers(titulos);
+     //traer datos desde la base
+    List <Cliente> listaCliente = control.traerClientes();
+    
+        //recorrer la lista y mostrar datos en la tabla
+    if (listaCliente!=null){
+        for (Cliente cli : listaCliente) {
+            Object[] objeto = {cli.getIdCliente(), cli.getApellido(), cli.getNombre(), cli.getDni(),
+            cli.getEmail(), cli.getTelefono(), cli.getEstado()};
+            
+            datosTabla.addRow(objeto);
+        }   
+    }
+    tablaClientes.setModel(datosTabla);
+        DefaultTableCellRenderer alinearDerecha = new DefaultTableCellRenderer();
+        alinearDerecha.setHorizontalAlignment(SwingConstants.RIGHT);
+        DefaultTableCellRenderer alinearCentro = new DefaultTableCellRenderer();
+        alinearCentro.setHorizontalAlignment(SwingConstants.CENTER);
+        DefaultTableCellRenderer alinearIzquierda = new DefaultTableCellRenderer();
+        alinearIzquierda.setHorizontalAlignment(SwingConstants.LEFT);
+        // Aplicar las alineaciones a las columnas específicas
+        tablaClientes.getColumnModel().getColumn(0).setCellRenderer(alinearCentro);
+        tablaClientes.getColumnModel().getColumn(1).setCellRenderer(alinearIzquierda);
+        tablaClientes.getColumnModel().getColumn(2).setCellRenderer(alinearIzquierda);
+        tablaClientes.getColumnModel().getColumn(3).setCellRenderer(alinearDerecha);
+        tablaClientes.getColumnModel().getColumn(4).setCellRenderer(alinearIzquierda);
+        tablaClientes.getColumnModel().getColumn(5).setCellRenderer(alinearDerecha);
+       // tablaClientes.getColumnModel().getColumn(6).setCellRenderer(alinearDerecha);
+    tablaClientes.setAutoCreateRowSorter(true);
+    sorter = new TableRowSorter<>(datosTabla);
+    tablaClientes.setRowSorter(sorter);
     }
    
     @SuppressWarnings("unchecked")
@@ -36,9 +80,8 @@ public class VistaClientes extends javax.swing.JPanel {
         jPanel1 = new javax.swing.JPanel();
         title = new javax.swing.JLabel();
         txtBuscar = new javax.swing.JTextField();
-        btnBuscar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tablaClientes = new javax.swing.JTable();
         btnEditar = new javax.swing.JButton();
         txtNuevo = new javax.swing.JButton();
         txtBajaAlta = new javax.swing.JButton();
@@ -52,21 +95,16 @@ public class VistaClientes extends javax.swing.JPanel {
         title.setForeground(new java.awt.Color(0, 0, 0));
         title.setText("Clientes");
 
+        txtBuscar.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         txtBuscar.setBorder(null);
-
-        btnBuscar.setBackground(new java.awt.Color(13, 71, 161));
-        btnBuscar.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        btnBuscar.setForeground(new java.awt.Color(255, 255, 255));
-        btnBuscar.setText("Buscar");
-        btnBuscar.setBorder(null);
-        btnBuscar.setBorderPainted(false);
-        btnBuscar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnBuscarActionPerformed(evt);
+        txtBuscar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtBuscarKeyReleased(evt);
             }
         });
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tablaClientes.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        tablaClientes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {},
                 {},
@@ -77,7 +115,7 @@ public class VistaClientes extends javax.swing.JPanel {
 
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tablaClientes);
 
         btnEditar.setBackground(new java.awt.Color(13, 71, 161));
         btnEditar.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -106,7 +144,7 @@ public class VistaClientes extends javax.swing.JPanel {
         txtBajaAlta.setBackground(new java.awt.Color(13, 71, 161));
         txtBajaAlta.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         txtBajaAlta.setForeground(new java.awt.Color(255, 255, 255));
-        txtBajaAlta.setText("Baja/Alta");
+        txtBajaAlta.setText("Cambiar estado");
         txtBajaAlta.setBorder(null);
         txtBajaAlta.setBorderPainted(false);
         txtBajaAlta.addActionListener(new java.awt.event.ActionListener() {
@@ -121,42 +159,35 @@ public class VistaClientes extends javax.swing.JPanel {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(6, 6, 6)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(title, javax.swing.GroupLayout.DEFAULT_SIZE, 136, Short.MAX_VALUE)
+                .addGap(675, 675, 675))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(txtBuscar)
+                    .addComponent(jScrollPane1)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(title, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(769, 769, 769))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(txtBuscar)
+                        .addComponent(txtBajaAlta, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(12, 12, 12))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 811, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(12, Short.MAX_VALUE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(txtBajaAlta, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnEditar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(380, 380, 380)
-                        .addComponent(txtNuevo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(6, 6, 6))))
+                        .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(txtNuevo, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(36, 36, 36))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(6, 6, 6)
-                .addComponent(title, javax.swing.GroupLayout.DEFAULT_SIZE, 29, Short.MAX_VALUE)
-                .addGap(5, 5, 5)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(title, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(6, 6, 6)
+                .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 360, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtBajaAlta, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtNuevo, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtNuevo, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtBajaAlta, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(39, 39, 39))
         );
 
@@ -164,7 +195,7 @@ public class VistaClientes extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -173,29 +204,55 @@ public class VistaClientes extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
-        // TODO add your handling code here:
+             //Verificar q la tabla no este vacia
+        if (tablaClientes.getRowCount()>0){
+            //verificar q haya seleccionado 1
+            if (tablaClientes.getSelectedRow()!=-1){
+              //llamar a nuevo jpanel pasando el id del objeto seleccionado
+              int id = Integer.parseInt(String.valueOf(tablaClientes.getValueAt(tablaClientes.getSelectedRow(),0)));
+              ElectronicaGaletto.ShowJPanel(new EditCliente(id, usr));
+            }
+        }
     }//GEN-LAST:event_btnEditarActionPerformed
 
     private void txtNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNuevoActionPerformed
-        
     ElectronicaGaletto.ShowJPanel(new AltaClientes());
     }//GEN-LAST:event_txtNuevoActionPerformed
 
     private void txtBajaAltaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtBajaAltaActionPerformed
-        // TODO add your handling code here:
+        //Verificar q la tabla no este vacia
+        if (tablaClientes.getRowCount()>0){
+            //verificar q haya seleccionado 1
+            if (tablaClientes.getSelectedRow()!=-1){
+              //llamar a nuevo jpanel pasando el id del objeto seleccionado
+              int id = Integer.parseInt(String.valueOf(tablaClientes.getValueAt(tablaClientes.getSelectedRow(),0)));
+          
+        control.editarEstadoCliente(id);
+                
+        JOptionPane optionPane = new JOptionPane("Se modificó correctamente");
+        optionPane.setMessageType(JOptionPane.INFORMATION_MESSAGE);
+        JDialog dialog = optionPane.createDialog("Guardado Exitoso");
+        dialog.setAlwaysOnTop(true);
+        dialog.setVisible(true);
+        ElectronicaGaletto.ShowJPanel(new VistaClientes( usr));
+            }
+        }
     }//GEN-LAST:event_txtBajaAltaActionPerformed
 
-    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnBuscarActionPerformed
-
-    
+            
+    private void txtBuscarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarKeyReleased
+        filtrar();
+    }//GEN-LAST:event_txtBuscarKeyReleased
+     private void filtrar(){
+        String texto = txtBuscar.getText();
+        String filtro = "(?i)" + texto; // agrega la flag (?i)
+        sorter.setRowFilter(RowFilter.regexFilter(filtro));
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnBuscar;
     private javax.swing.JButton btnEditar;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable tablaClientes;
     private javax.swing.JLabel title;
     private javax.swing.JButton txtBajaAlta;
     private javax.swing.JTextField txtBuscar;

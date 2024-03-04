@@ -39,7 +39,7 @@ public class GrupoJpaController implements Serializable {
             em.getTransaction().begin();
             LinkedList<Articulo> attachedArticulo = new LinkedList<Articulo>();
             for (Articulo articuloArticuloToAttach : grupo.getArticulo()) {
-                articuloArticuloToAttach = em.getReference(articuloArticuloToAttach.getClass(), articuloArticuloToAttach.getIdArituclo());
+                articuloArticuloToAttach = em.getReference(articuloArticuloToAttach.getClass(), articuloArticuloToAttach.getIdArticulo());
                 attachedArticulo.add(articuloArticuloToAttach);
             }
             grupo.setArticulo(attachedArticulo);
@@ -71,7 +71,7 @@ public class GrupoJpaController implements Serializable {
             LinkedList<Articulo> articuloNew = grupo.getArticulo();
             LinkedList<Articulo> attachedArticuloNew = new LinkedList<Articulo>();
             for (Articulo articuloNewArticuloToAttach : articuloNew) {
-                articuloNewArticuloToAttach = em.getReference(articuloNewArticuloToAttach.getClass(), articuloNewArticuloToAttach.getIdArituclo());
+                articuloNewArticuloToAttach = em.getReference(articuloNewArticuloToAttach.getClass(), articuloNewArticuloToAttach.getIdArticulo());
                 attachedArticuloNew.add(articuloNewArticuloToAttach);
             }
             articuloNew = attachedArticuloNew;

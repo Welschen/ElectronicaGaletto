@@ -23,14 +23,17 @@ public class Pago implements Serializable {
     private String formaPago;
     @ManyToOne
     private Cliente clien;
+    @ManyToOne
+    private Usuario usu;
 
-    public Pago(int idPago, Date fechaPago, Date horaPago, double monto, String formaPago, Cliente clien) {
+    public Pago(int idPago, Date fechaPago, Date horaPago, double monto, String formaPago, Cliente clien, Usuario usu) {
         this.idPago = idPago;
         this.fechaPago = fechaPago;
         this.horaPago = horaPago;
         this.monto = monto;
         this.formaPago = formaPago;
         this.clien = clien;
+        this.usu = usu;
     }
 
     public Pago() {
@@ -43,6 +46,14 @@ public class Pago implements Serializable {
         this.formaPago = formaPago;
     }
 
+    public Usuario getUsu() {
+        return usu;
+    }
+
+    public void setUsu(Usuario usu) {
+        this.usu = usu;
+    }
+    
     public int getIdPago() {
         return idPago;
     }

@@ -1,5 +1,6 @@
 package com.mycompany.electronicagaletto.logica;
 
+import com.mycompany.electronicagaletto.logica.Devolucion;
 import com.mycompany.electronicagaletto.logica.Domicilio;
 import com.mycompany.electronicagaletto.logica.Pago;
 import com.mycompany.electronicagaletto.logica.Venta;
@@ -8,7 +9,7 @@ import javax.persistence.metamodel.ListAttribute;
 import javax.persistence.metamodel.SingularAttribute;
 import javax.persistence.metamodel.StaticMetamodel;
 
-@Generated(value="org.eclipse.persistence.internal.jpa.modelgen.CanonicalModelProcessor", date="2024-01-08T15:34:24", comments="EclipseLink-2.7.12.v20230209-rNA")
+@Generated(value="org.eclipse.persistence.internal.jpa.modelgen.CanonicalModelProcessor", date="2024-03-04T20:51:13", comments="EclipseLink-2.7.12.v20230209-rNA")
 @StaticMetamodel(Cliente.class)
 public class Cliente_ { 
 
@@ -20,6 +21,7 @@ public class Cliente_ {
     public static volatile ListAttribute<Cliente, Venta> listaVentas;
     public static volatile SingularAttribute<Cliente, String> telefono;
     public static volatile SingularAttribute<Cliente, String> nombre;
+    public static volatile ListAttribute<Cliente, Devolucion> listaDevolucion;
     public static volatile SingularAttribute<Cliente, Integer> dni;
     public static volatile SingularAttribute<Cliente, String> email;
 

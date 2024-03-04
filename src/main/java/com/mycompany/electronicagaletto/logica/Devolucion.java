@@ -26,17 +26,20 @@ public class Devolucion implements Serializable{
     private Usuario usuario;
     @ManyToOne
     private Venta venta;
+    @ManyToOne
+    private Cliente cliente;
 
     public Devolucion() {
     }
 
-    public Devolucion(int idDevolucion, Date fechaDevolucion, double totalDevolucion, LinkedList<ItemDevolucion> itemDev, Usuario usuario, Venta venta) {
+    public Devolucion(int idDevolucion, Date fechaDevolucion, double totalDevolucion, LinkedList<ItemDevolucion> itemDev, Usuario usuario, Venta venta, Cliente cliente) {
         this.idDevolucion = idDevolucion;
         this.fechaDevolucion = fechaDevolucion;
         this.totalDevolucion = totalDevolucion;
         this.itemDev = itemDev;
         this.usuario = usuario;
         this.venta = venta;
+        this.cliente = cliente;
     }
 
 
@@ -63,7 +66,13 @@ public class Devolucion implements Serializable{
     public void setTotalDevolucion(double totalDevolucion) {
         this.totalDevolucion = totalDevolucion;
     }
+    public Cliente getCliente() {
+        return cliente;
+    }
 
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
+    }
     public LinkedList<ItemDevolucion> getItemDev() {
         return itemDev;
     }

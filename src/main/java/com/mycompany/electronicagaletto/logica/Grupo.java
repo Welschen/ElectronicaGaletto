@@ -86,4 +86,12 @@ public class Grupo implements Serializable {
     public String toString() {
         return  nombreGrupo;
     }
+
+    public String getEstado() {
+        if (isEstado()==true){
+            return "Activo";
+        }else{
+        return "Inactivo";  
+        }
+    }
 }
