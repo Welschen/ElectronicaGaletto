@@ -45,10 +45,10 @@ public class AltaLocalidades extends javax.swing.JPanel {
         title.setText("Nueva Localidad");
 
         jLabel1.setBackground(new java.awt.Color(0, 0, 0));
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel1.setText("Nombre");
 
-        txtNom.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        txtNom.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         txtNom.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtNomActionPerformed(evt);
@@ -56,16 +56,16 @@ public class AltaLocalidades extends javax.swing.JPanel {
         });
 
         jLabel2.setBackground(new java.awt.Color(0, 0, 0));
-        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel2.setText("Codigo postal");
 
-        txtCP.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        txtCP.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
 
         jLabel3.setBackground(new java.awt.Color(0, 0, 0));
-        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel3.setText("Provincia");
 
-        txtProv.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        txtProv.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
 
         btnGuardar.setBackground(new java.awt.Color(13, 71, 161));
         btnGuardar.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N

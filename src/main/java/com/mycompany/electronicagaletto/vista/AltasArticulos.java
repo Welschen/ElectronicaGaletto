@@ -63,24 +63,24 @@ public class AltasArticulos extends javax.swing.JPanel {
         jSeparator1.setOrientation(javax.swing.SwingConstants.VERTICAL);
 
         jLabel1.setBackground(new java.awt.Color(0, 0, 0));
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel1.setText("Nombre");
 
-        txtNombreArt.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        txtNombreArt.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
 
         jLabel2.setBackground(new java.awt.Color(0, 0, 0));
-        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel2.setText("Codigo de barras (opcional)");
 
-        txtCodBarras.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        txtCodBarras.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
 
         jLabel3.setBackground(new java.awt.Color(0, 0, 0));
-        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel3.setText("Costo");
 
-        txtCosto.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        txtCosto.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
 
-        txtStock.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        txtStock.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         txtStock.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtStockActionPerformed(evt);
@@ -88,14 +88,14 @@ public class AltasArticulos extends javax.swing.JPanel {
         });
 
         jLabel9.setBackground(new java.awt.Color(0, 0, 0));
-        jLabel9.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel9.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel9.setText("Stock");
 
         jLabel10.setBackground(new java.awt.Color(0, 0, 0));
-        jLabel10.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel10.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel10.setText("Grupo");
 
-        cmbGrupo.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        cmbGrupo.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         cmbGrupo.setSelectedItem(3);
         cmbGrupo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

@@ -97,7 +97,7 @@ public class VistaLocalidades extends javax.swing.JPanel {
         title.setForeground(new java.awt.Color(0, 0, 0));
         title.setText("Localidades");
 
-        txtBuscar.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        txtBuscar.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         txtBuscar.setHorizontalAlignment(javax.swing.JTextField.LEFT);
         txtBuscar.setBorder(null);
         txtBuscar.addActionListener(new java.awt.event.ActionListener() {
@@ -111,7 +111,7 @@ public class VistaLocalidades extends javax.swing.JPanel {
             }
         });
 
-        tablaLocalidades.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        tablaLocalidades.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         tablaLocalidades.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {},

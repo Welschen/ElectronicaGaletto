@@ -79,42 +79,42 @@ public class EditCliente extends javax.swing.JPanel {
         jSeparator1.setOrientation(javax.swing.SwingConstants.VERTICAL);
 
         jLabel1.setBackground(new java.awt.Color(0, 0, 0));
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel1.setText("Nombre");
 
-        txtNom.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        txtNom.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
 
         jLabel2.setBackground(new java.awt.Color(0, 0, 0));
-        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel2.setText("Apellido");
 
-        txtApe.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        txtApe.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
 
         jLabel3.setBackground(new java.awt.Color(0, 0, 0));
-        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel3.setText("DNI");
 
-        txtDNI.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        txtDNI.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
 
         jLabel4.setBackground(new java.awt.Color(0, 0, 0));
-        jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel4.setText("Email (opcional)");
 
-        txtMail.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        txtMail.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
 
         jLabel5.setBackground(new java.awt.Color(0, 0, 0));
-        jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel5.setText("Teléfono");
 
-        txtTel.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        txtTel.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
 
-        txtDepto.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        txtDepto.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
 
         jLabel6.setBackground(new java.awt.Color(0, 0, 0));
-        jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel6.setText("Departamento (opcional)");
 
-        txtPiso.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        txtPiso.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         txtPiso.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtPisoActionPerformed(evt);
@@ -122,16 +122,16 @@ public class EditCliente extends javax.swing.JPanel {
         });
 
         jLabel7.setBackground(new java.awt.Color(0, 0, 0));
-        jLabel7.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel7.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel7.setText("Piso (opcional)");
 
-        txtNumCalle.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        txtNumCalle.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
 
         jLabel8.setBackground(new java.awt.Color(0, 0, 0));
-        jLabel8.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel8.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel8.setText("Número");
 
-        txtCalle.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        txtCalle.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         txtCalle.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtCalleActionPerformed(evt);
@@ -139,14 +139,14 @@ public class EditCliente extends javax.swing.JPanel {
         });
 
         jLabel9.setBackground(new java.awt.Color(0, 0, 0));
-        jLabel9.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel9.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel9.setText("Calle");
 
         jLabel10.setBackground(new java.awt.Color(0, 0, 0));
-        jLabel10.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel10.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel10.setText("Localidad");
 
-        cmbLocalidad.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        cmbLocalidad.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
 
         btnGuardar.setBackground(new java.awt.Color(13, 71, 161));
         btnGuardar.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N

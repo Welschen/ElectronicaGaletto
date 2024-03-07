@@ -1,10 +1,12 @@
 package com.mycompany.electronicagaletto.vista;
 
 import com.mycompany.electronicagaletto.ElectronicaGaletto;
+import static com.mycompany.electronicagaletto.ElectronicaGaletto.ShowJPanel;
 import com.mycompany.electronicagaletto.logica.ControladoraLogica;
 import com.mycompany.electronicagaletto.logica.Grupo;
 import com.mycompany.electronicagaletto.logica.Usuario;
 import java.awt.Color;
+import java.text.DecimalFormat;
 import java.util.List;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
@@ -18,6 +20,7 @@ public class VistaGrupos extends javax.swing.JPanel {
     private TableRowSorter<DefaultTableModel> sorter;
     ControladoraLogica control = null;
     Usuario usr;
+    DecimalFormat df = new DecimalFormat("0.00");
     public VistaGrupos( Usuario usr) {
         control = new ControladoraLogica();
         this.usr=usr;
@@ -38,7 +41,7 @@ public class VistaGrupos extends javax.swing.JPanel {
                return false; 
             }
     };
-    String titulos[] = {"Identificador","Nombre", "Bajo Stock", "Beneficio", "Estado"};
+    String titulos[] = {"Identificador","Nombre", "Stock mínimo", "Beneficio", "Estado"};
     datosTabla.setColumnIdentifiers(titulos);
      //traer datos desde la base
     List <Grupo> listaGrupos = control.traerGrupos();
@@ -46,7 +49,9 @@ public class VistaGrupos extends javax.swing.JPanel {
         //recorrer la lista y mostrar datos en la tabla
     if (listaGrupos!=null){
         for (Grupo grupo : listaGrupos) {
-            Object[] objeto = {grupo.getIdGrupo(),grupo.getNombreGrupo(), grupo.getBajoStock(), grupo.getBeneficio(),
+            String con =df.format(grupo.getBeneficio());
+            String sin=con.replace(',', '.');
+            Object[] objeto = {grupo.getIdGrupo(),grupo.getNombreGrupo(), grupo.getBajoStock(), sin,
             grupo.getEstado()};
             
             datosTabla.addRow(objeto);
@@ -83,6 +88,7 @@ public class VistaGrupos extends javax.swing.JPanel {
         btnEditar = new javax.swing.JButton();
         txtNuevo = new javax.swing.JButton();
         txtBajaAlta = new javax.swing.JButton();
+        btnVerArtic = new javax.swing.JButton();
 
         setPreferredSize(new java.awt.Dimension(817, 528));
 
@@ -93,7 +99,7 @@ public class VistaGrupos extends javax.swing.JPanel {
         title.setForeground(new java.awt.Color(0, 0, 0));
         title.setText("Grupos");
 
-        txtBuscar.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        txtBuscar.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         txtBuscar.setBorder(null);
         txtBuscar.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
@@ -101,7 +107,7 @@ public class VistaGrupos extends javax.swing.JPanel {
             }
         });
 
-        tablaGrupos.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        tablaGrupos.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         tablaGrupos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {},
@@ -151,6 +157,18 @@ public class VistaGrupos extends javax.swing.JPanel {
             }
         });
 
+        btnVerArtic.setBackground(new java.awt.Color(13, 71, 161));
+        btnVerArtic.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnVerArtic.setForeground(new java.awt.Color(255, 255, 255));
+        btnVerArtic.setText("Ver artículos por grupo");
+        btnVerArtic.setBorder(null);
+        btnVerArtic.setBorderPainted(false);
+        btnVerArtic.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVerArticActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -168,6 +186,8 @@ public class VistaGrupos extends javax.swing.JPanel {
                                 .addGap(18, 18, 18)
                                 .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btnVerArtic, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(81, 81, 81)
                                 .addComponent(txtNuevo, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
@@ -188,7 +208,8 @@ public class VistaGrupos extends javax.swing.JPanel {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtNuevo, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtBajaAlta, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtBajaAlta, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnVerArtic, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(39, 39, 39))
         );
 
@@ -242,6 +263,16 @@ public class VistaGrupos extends javax.swing.JPanel {
     private void txtBuscarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarKeyReleased
         filtrar();
     }//GEN-LAST:event_txtBuscarKeyReleased
+
+    private void btnVerArticActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerArticActionPerformed
+         int fila = tablaGrupos.getSelectedRow();
+        if(fila !=-1){
+             int id =(int) tablaGrupos.getValueAt(fila, 0);
+        Grupo grupo = control.traerGrupo(id);
+        ShowJPanel(new VistaArticulosXGrupo(usr,grupo));
+        }
+        
+    }//GEN-LAST:event_btnVerArticActionPerformed
      private void filtrar(){
         String texto = txtBuscar.getText();
         String filtro = "(?i)" + texto; // agrega la flag (?i)
@@ -250,6 +281,7 @@ public class VistaGrupos extends javax.swing.JPanel {
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnEditar;
+    private javax.swing.JButton btnVerArtic;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tablaGrupos;

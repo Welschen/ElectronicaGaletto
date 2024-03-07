@@ -59,10 +59,10 @@ public class ElectronicaGaletto extends javax.swing.JFrame {
         btnClientes = new javax.swing.JButton();
         btnGrupos = new javax.swing.JButton();
         btnVentas = new javax.swing.JButton();
-        btnReportes = new javax.swing.JButton();
         btnLocalidades = new javax.swing.JButton();
         btnDevoluciones = new javax.swing.JButton();
         btnDevoluciones1 = new javax.swing.JButton();
+        btnDevoluciones2 = new javax.swing.JButton();
         header = new javax.swing.JPanel();
         content = new javax.swing.JPanel();
 
@@ -150,23 +150,6 @@ public class ElectronicaGaletto extends javax.swing.JFrame {
             }
         });
 
-        btnReportes.setBackground(new java.awt.Color(13, 71, 161));
-        btnReportes.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        btnReportes.setForeground(new java.awt.Color(255, 255, 255));
-        btnReportes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/archivar-factura (1).png"))); // NOI18N
-        btnReportes.setText("Reportes");
-        btnReportes.setToolTipText("");
-        btnReportes.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 10, 1, 1, new java.awt.Color(0, 0, 0)));
-        btnReportes.setBorderPainted(false);
-        btnReportes.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnReportes.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        btnReportes.setIconTextGap(14);
-        btnReportes.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnReportesActionPerformed(evt);
-            }
-        });
-
         btnLocalidades.setBackground(new java.awt.Color(13, 71, 161));
         btnLocalidades.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnLocalidades.setForeground(new java.awt.Color(255, 255, 255));
@@ -218,6 +201,23 @@ public class ElectronicaGaletto extends javax.swing.JFrame {
             }
         });
 
+        btnDevoluciones2.setBackground(new java.awt.Color(13, 71, 161));
+        btnDevoluciones2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnDevoluciones2.setForeground(new java.awt.Color(255, 255, 255));
+        btnDevoluciones2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/archivar-factura (1).png"))); // NOI18N
+        btnDevoluciones2.setText("Ingresar mercadería");
+        btnDevoluciones2.setToolTipText("");
+        btnDevoluciones2.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 10, 1, 1, new java.awt.Color(0, 0, 0)));
+        btnDevoluciones2.setBorderPainted(false);
+        btnDevoluciones2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnDevoluciones2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        btnDevoluciones2.setIconTextGap(14);
+        btnDevoluciones2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDevoluciones2ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout menuLayout = new javax.swing.GroupLayout(menu);
         menu.setLayout(menuLayout);
         menuLayout.setHorizontalGroup(
@@ -232,10 +232,10 @@ public class ElectronicaGaletto extends javax.swing.JFrame {
             .addComponent(btnVentas, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
             .addComponent(btnClientes, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
             .addComponent(btnGrupos, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addComponent(btnReportes, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
             .addComponent(btnLocalidades, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
             .addComponent(btnDevoluciones, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
             .addComponent(btnDevoluciones1, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(btnDevoluciones2, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         menuLayout.setVerticalGroup(
             menuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -253,13 +253,13 @@ public class ElectronicaGaletto extends javax.swing.JFrame {
                 .addGap(2, 2, 2)
                 .addComponent(btnGrupos, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(2, 2, 2)
-                .addComponent(btnReportes, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(2, 2, 2)
                 .addComponent(btnLocalidades, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(2, 2, 2)
                 .addComponent(btnDevoluciones, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(2, 2, 2)
-                .addComponent(btnDevoluciones1, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(btnDevoluciones1, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(2, 2, 2)
+                .addComponent(btnDevoluciones2, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         header.setBackground(new java.awt.Color(25, 118, 210));
@@ -346,10 +346,6 @@ public class ElectronicaGaletto extends javax.swing.JFrame {
         ShowJPanel(new VistaVentas(usr));
     }//GEN-LAST:event_btnVentasActionPerformed
 
-    private void btnReportesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReportesActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnReportesActionPerformed
-
     private void btnLocalidadesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLocalidadesActionPerformed
         ShowJPanel(new VistaLocalidades());
     }//GEN-LAST:event_btnLocalidadesActionPerformed
@@ -361,6 +357,10 @@ public class ElectronicaGaletto extends javax.swing.JFrame {
     private void btnDevoluciones1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDevoluciones1ActionPerformed
         ShowJPanel(new CuentasClientes(usr));
     }//GEN-LAST:event_btnDevoluciones1ActionPerformed
+
+    private void btnDevoluciones2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDevoluciones2ActionPerformed
+        ShowJPanel(new IngresoMercaderia(usr));
+    }//GEN-LAST:event_btnDevoluciones2ActionPerformed
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -377,9 +377,9 @@ public class ElectronicaGaletto extends javax.swing.JFrame {
     private javax.swing.JButton btnClientes;
     private javax.swing.JButton btnDevoluciones;
     private javax.swing.JButton btnDevoluciones1;
+    private javax.swing.JButton btnDevoluciones2;
     private javax.swing.JButton btnGrupos;
     private javax.swing.JButton btnLocalidades;
-    private javax.swing.JButton btnReportes;
     private javax.swing.JButton btnVentas;
     private static javax.swing.JPanel content;
     private javax.swing.JPanel header;

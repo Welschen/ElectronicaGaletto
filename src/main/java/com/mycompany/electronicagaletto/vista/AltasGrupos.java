@@ -45,22 +45,22 @@ public class AltasGrupos extends javax.swing.JPanel {
         title.setText("Nuevo Grupo");
 
         jLabel1.setBackground(new java.awt.Color(0, 0, 0));
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel1.setText("Nombre");
 
-        txtNomGrupo.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        txtNomGrupo.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
 
         jLabel2.setBackground(new java.awt.Color(0, 0, 0));
-        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel2.setText("Indicador de bajo stock");
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel2.setText("Indicador de stock mínimo");
 
-        txtBajoStock.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        txtBajoStock.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
 
         jLabel3.setBackground(new java.awt.Color(0, 0, 0));
-        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel3.setText("Beneficio");
 
-        txtBene.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        txtBene.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
 
         btnNuevo.setBackground(new java.awt.Color(13, 71, 161));
         btnNuevo.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N

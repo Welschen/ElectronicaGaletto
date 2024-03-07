@@ -80,6 +80,9 @@ public class ControladoraLogica {
     public List<Cliente> traerClientes() {
         return controlPersis.traerClientes();
     }
+    public List<Cliente> traerClientesActivo() {
+        return controlPersis.traerClientesActivo();
+    }
 
     public Grupo traerGrupo(int id) {
       return controlPersis.traerGrupos(id);
@@ -260,6 +263,9 @@ public class ControladoraLogica {
         item.setVenta(iDVenta);
         
         controlPersis.guardarItemVenta(item);
+        int stock =art.getStock()-cant;
+        art.setStock(stock);
+        controlPersis.editarArticulo(art);
         
         LinkedList<ItemVenta> listaItemV = new LinkedList<ItemVenta>();
         listaItemV.add(item);
@@ -331,5 +337,23 @@ public class ControladoraLogica {
 
     public List<ItemDevolucion> traerItemDevoluciones(Cliente idCliente) {
         return controlPersis.traerItemDevolucion(idCliente);
+    }
+
+    public List<Articulo> traerArticulosAlta() {
+       return controlPersis.traerArticulosAlta();
+    }
+
+    public void editStock(Articulo art, int nuev, Usuario usr) {
+        Articulo arti =art;
+        arti.setStock(nuev);
+     controlPersis.editarArticulo(arti);   
+    }
+
+    public List<Articulo> traerArticulos(Grupo grupo) {
+        return controlPersis.traerArticulos(grupo);
+    }
+
+    public void verStock(Articulo art) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 }

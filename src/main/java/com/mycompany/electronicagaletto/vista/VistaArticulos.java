@@ -1,10 +1,12 @@
 package com.mycompany.electronicagaletto.vista;
 
 import com.mycompany.electronicagaletto.ElectronicaGaletto;
+import static com.mycompany.electronicagaletto.ElectronicaGaletto.ShowJPanel;
 import com.mycompany.electronicagaletto.logica.Articulo;
 import com.mycompany.electronicagaletto.logica.ControladoraLogica;
 import com.mycompany.electronicagaletto.logica.Usuario;
 import java.awt.Color;
+import java.text.DecimalFormat;
 import java.util.List;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
@@ -12,6 +14,7 @@ import javax.swing.RowFilter;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableRowSorter;
 
 public class VistaArticulos extends javax.swing.JPanel {
@@ -19,13 +22,14 @@ public class VistaArticulos extends javax.swing.JPanel {
     private TableRowSorter<DefaultTableModel> sorter;
     ControladoraLogica control = null;
     Usuario usr;
-    
+    DecimalFormat df = new DecimalFormat("#.00");
     public VistaArticulos( Usuario usr) {
         control = new ControladoraLogica();
         initComponents();
         initStyles();
         cargarTabla();
         this.usr = usr;
+        tablaArticulos.getColumnModel().getColumn(4).setCellRenderer(new RenderPintar());
     }
     private void initStyles() {
         title.putClientProperty("FlatLaf.styleClass", "h1");
@@ -41,44 +45,43 @@ public class VistaArticulos extends javax.swing.JPanel {
             }
     };
         //nombres de las columnas
-    String titulos[] = {"Identificador","Nombre", "Costo", "Precio", "Stock", "Grupo", 
+    String titulos[] = {"Identificador","Nombre", "Costo", "Precio", "Stock","Stock mínimo", "Grupo", 
         "Código de barras", "Estado"};
     datosTabla.setColumnIdentifiers(titulos);
-     // Alineaciones
-     /*
-       Renderer alinearCentro = new Renderer(SwingConstants.CENTER);
-       Renderer alinearIzquierda = new Renderer(SwingConstants.LEFT);
-       Renderer alinearDerecha = new Renderer(SwingConstants.RIGHT);
-        */
-        
         //traer datos desde la base
     List <Articulo> listaArticulos = control.traerArticulos();
-    
         //recorrer la lista y mostrar datos en la tabla
     if (listaArticulos!=null){
         for (Articulo arti : listaArticulos) {
-            Object[] objeto = {arti.getIdArticulo(), arti.getNombreArticulo(), arti.getCosto(), arti.getPrecio(), arti.getStock(),
+            String con =df.format(arti.getCosto());
+            String sin=con.replace(',', '.');
+            String con1 =df.format(arti.getPrecio());
+            String sin1=con.replace(',', '.');
+            Object[] objeto = {arti.getIdArticulo(), arti.getNombreArticulo(), sin,
+                sin1, arti.getStock(), arti.getGrupo().getBajoStock(),
             arti.getGrupo().getNombreGrupo(), arti.getCodBarra(), arti.getEstado()};
             
             datosTabla.addRow(objeto);
         }   
     }
     tablaArticulos.setModel(datosTabla);
+        
+    
         DefaultTableCellRenderer alinearDerecha = new DefaultTableCellRenderer();
         alinearDerecha.setHorizontalAlignment(SwingConstants.RIGHT);
         DefaultTableCellRenderer alinearCentro = new DefaultTableCellRenderer();
         alinearCentro.setHorizontalAlignment(SwingConstants.CENTER);
-        DefaultTableCellRenderer alinearIzquierda = new DefaultTableCellRenderer();
-        alinearIzquierda.setHorizontalAlignment(SwingConstants.LEFT);
+      
         // Aplicar las alineaciones a las columnas específicas
-        tablaArticulos.getColumnModel().getColumn(0).setCellRenderer(alinearCentro);
-        tablaArticulos.getColumnModel().getColumn(1).setCellRenderer(alinearIzquierda);
+        tablaArticulos.getColumnModel().getColumn(0).setCellRenderer(alinearDerecha);
+        //tablaArticulos.getColumnModel().getColumn(1).setCellRenderer(alinearIzquierda);
         tablaArticulos.getColumnModel().getColumn(2).setCellRenderer(alinearDerecha);
         tablaArticulos.getColumnModel().getColumn(3).setCellRenderer(alinearDerecha);
-        tablaArticulos.getColumnModel().getColumn(4).setCellRenderer(alinearCentro);
-        tablaArticulos.getColumnModel().getColumn(5).setCellRenderer(alinearIzquierda);
-        tablaArticulos.getColumnModel().getColumn(6).setCellRenderer(alinearDerecha);
-      // tablaArticulos.getColumnModel().getColumn(7).setCellRenderer(alinearIzquierda);
+        tablaArticulos.getColumnModel().getColumn(4).setCellRenderer(alinearDerecha);
+        tablaArticulos.getColumnModel().getColumn(5).setCellRenderer(alinearDerecha);
+        tablaArticulos.getColumnModel().getColumn(7).setCellRenderer(alinearDerecha);
+    
+      
     tablaArticulos.setAutoCreateRowSorter(true);
     sorter = new TableRowSorter<>(datosTabla);
     tablaArticulos.setRowSorter(sorter);
@@ -96,6 +99,7 @@ public class VistaArticulos extends javax.swing.JPanel {
         btnEditar = new javax.swing.JButton();
         btnNuevo = new javax.swing.JButton();
         btnBajaAlta = new javax.swing.JButton();
+        btnEditar1 = new javax.swing.JButton();
 
         setPreferredSize(new java.awt.Dimension(817, 528));
         addHierarchyBoundsListener(new java.awt.event.HierarchyBoundsListener() {
@@ -113,7 +117,7 @@ public class VistaArticulos extends javax.swing.JPanel {
         title.setForeground(new java.awt.Color(0, 0, 0));
         title.setText("Artículos");
 
-        txtBuscar.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        txtBuscar.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         txtBuscar.setHorizontalAlignment(javax.swing.JTextField.LEFT);
         txtBuscar.setBorder(null);
         txtBuscar.addActionListener(new java.awt.event.ActionListener() {
@@ -127,7 +131,7 @@ public class VistaArticulos extends javax.swing.JPanel {
             }
         });
 
-        tablaArticulos.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        tablaArticulos.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         tablaArticulos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {},
@@ -188,6 +192,21 @@ public class VistaArticulos extends javax.swing.JPanel {
             }
         });
 
+        btnEditar1.setBackground(new java.awt.Color(13, 71, 161));
+        btnEditar1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnEditar1.setForeground(new java.awt.Color(255, 255, 255));
+        btnEditar1.setText("Articulos con stock bajo ");
+        btnEditar1.setBorder(null);
+        btnEditar1.setBorderPainted(false);
+        btnEditar1.setMaximumSize(new java.awt.Dimension(44, 20));
+        btnEditar1.setMinimumSize(new java.awt.Dimension(44, 20));
+        btnEditar1.setPreferredSize(new java.awt.Dimension(44, 20));
+        btnEditar1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditar1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -203,6 +222,8 @@ public class VistaArticulos extends javax.swing.JPanel {
                         .addComponent(btnBajaAlta, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(88, 88, 88)
+                        .addComponent(btnEditar1, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnNuevo, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(txtBuscar))
@@ -221,7 +242,8 @@ public class VistaArticulos extends javax.swing.JPanel {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(btnBajaAlta, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(btnBajaAlta, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnEditar1, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(btnNuevo, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(39, 39, 39))
         );
@@ -289,6 +311,10 @@ public class VistaArticulos extends javax.swing.JPanel {
     private void txtBuscarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarKeyReleased
         filtrar();
     }//GEN-LAST:event_txtBuscarKeyReleased
+
+    private void btnEditar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditar1ActionPerformed
+       ShowJPanel(new ArticulosBajoStock(usr));
+    }//GEN-LAST:event_btnEditar1ActionPerformed
     private void filtrar(){
         String texto = txtBuscar.getText();
         String filtro = "(?i)" + texto; // agrega la flag (?i)
@@ -298,6 +324,7 @@ public class VistaArticulos extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBajaAlta;
     private javax.swing.JButton btnEditar;
+    private javax.swing.JButton btnEditar1;
     private javax.swing.JButton btnNuevo;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;

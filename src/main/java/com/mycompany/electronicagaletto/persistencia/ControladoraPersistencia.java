@@ -191,20 +191,11 @@ public class ControladoraPersistencia {
         }
     }
 
-    public void getClienteCmb(JComboBox<Cliente> cmbCliente) {
-        EntityManager em = localJpa.getEntityManager();
-    Iterator it = em.createQuery("SELECT c FROM Cliente c").getResultList().iterator();
-    Cliente h;
-    try{
-        while(it.hasNext()){
-            h = (Cliente) it.next();
-            if(h.isEstado()){
-                  cmbCliente.addItem(h);
-            }
-            }       
-        }catch (Exception e){
-            System.out.println("Error, no existen clientes para listar");
-        }
+    public List<Cliente> traerClientesActivo() {
+        EntityManager em= clienteJpa.getEntityManager();
+            String jpql="SELECT i FROM Cliente i WHERE  i.estado=true";
+            Query query= em.createQuery(jpql);
+            return query.getResultList();
     }
 
     public List<Usuario> traerUsuarios() {
@@ -294,9 +285,29 @@ public class ControladoraPersistencia {
     public List<ItemDevolucion> traerItemDevolucion(Cliente idCliente) {
             EntityManager em= itemDevoJpa.getEntityManager();
             int clienteId = idCliente.getIdCliente();
-            String jpql="SELECT i FROM ItemDevolucion i WHERE i.devo.cliente.idCliente=:idcliente";
+            String jpql="SELECT i FROM ItemDevolucion i WHERE i.devo.cliente.idCliente=:idcliente AND i.cambio=false";
             Query query= em.createQuery(jpql);
             query.setParameter("idcliente",clienteId);
+        
+            return query.getResultList();
+    }
+
+    public List<Articulo> traerArticulosAlta() {
+        EntityManager em= articuloJpa.getEntityManager();
+           
+            String jpql="SELECT i FROM Articulo i WHERE  i.estado=true";
+            Query query= em.createQuery(jpql);
+          
+        
+            return query.getResultList();
+    }
+
+    public List<Articulo> traerArticulos(Grupo grupo) {
+         EntityManager em= itemDevoJpa.getEntityManager();
+            int grupoId = grupo.getIdGrupo();
+            String jpql="SELECT i FROM Articulo i WHERE i.grupo.idGrupo=:idgrupo";
+            Query query= em.createQuery(jpql);
+            query.setParameter("idgrupo",grupoId);
         
             return query.getResultList();
     }
