@@ -211,7 +211,7 @@ public class ControladoraPersistencia {
         return idVen;
     }
     public Venta traerVenta(int idVent) {
-        return ventaJpa.findVenta(idVen);
+        return ventaJpa.findVenta(idVent);
     }
     public void guardarItemVenta(ItemVenta item) {
         itemVtaJpa.create(item);
@@ -310,5 +310,31 @@ public class ControladoraPersistencia {
             query.setParameter("idgrupo",grupoId);
         
             return query.getResultList();
+    }
+
+    public List<ItemVenta> traerItemVenta(Venta venta) {
+         EntityManager em= itemVtaJpa.getEntityManager();
+            int idvent = venta.getIdVenta();
+            String jpql="SELECT i FROM ItemVenta i WHERE i.ven.idVenta=:idventa";
+            Query query= em.createQuery(jpql);
+            query.setParameter("idventa",idvent);
+        
+            return query.getResultList();
+    }
+
+    public boolean verificarDni(String dni) {
+        EntityManager em= clienteJpa.getEntityManager();
+        int d = Integer.parseInt(dni);
+        String jpql="SELECT COUNT(i) FROM Cliente i WHERE i.dni=:dni";
+        Query query= em.createQuery(jpql);
+        query.setParameter("dni",d);
+        
+        Long count = (Long) query.getSingleResult();
+
+        return count > 0;
+    }
+
+    public void guardarUsuario(Usuario usua) {
+        usuJpa.create(usua);
     }
 }

@@ -10,11 +10,9 @@ import com.itextpdf.text.Image;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
-import com.mycompany.electronicagaletto.ElectronicaGaletto;
 import static com.mycompany.electronicagaletto.ElectronicaGaletto.ShowJPanel;
 import com.mycompany.electronicagaletto.logica.Cliente;
 import com.mycompany.electronicagaletto.logica.ControladoraLogica;
-import com.mycompany.electronicagaletto.logica.Devolucion;
 import com.mycompany.electronicagaletto.logica.ItemDevolucion;
 import com.mycompany.electronicagaletto.logica.Pago;
 import com.mycompany.electronicagaletto.logica.Usuario;
@@ -26,17 +24,14 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 import javax.swing.JOptionPane;
-
 import javax.swing.RowFilter;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
 import javax.swing.table.TableRowSorter;
 
 
@@ -87,6 +82,10 @@ public class CuentasClientes extends javax.swing.JPanel {
         }   
     }
     tablaClientes.setModel(datosTabla);
+    
+    JTableHeader thead = tablaClientes.getTableHeader();
+        thead.setForeground(Color.BLACK);
+        thead.setFont(new java.awt.Font("Segoe UI", java.awt.Font.BOLD, 14));
         DefaultTableCellRenderer alinearDerecha = new DefaultTableCellRenderer();
         alinearDerecha.setHorizontalAlignment(SwingConstants.RIGHT);
         DefaultTableCellRenderer alinearCentro = new DefaultTableCellRenderer();
@@ -161,11 +160,15 @@ public class CuentasClientes extends javax.swing.JPanel {
             }     
         }
         saldo=debe-haber;
-        sald = String.valueOf(saldo);
+      //  sald = String.valueOf(saldo);
         String con =df.format(saldo);
-               String sin=con.replace(',', '.');
-        txtSaldoTotal.setText("$ "+sin);
+               sald=con.replace(',', '.');
+        txtSaldoTotal.setText("$ "+sald);
     tablaCuenta.setModel(datosTabla);
+    
+    JTableHeader thead = tablaCuenta.getTableHeader();
+        thead.setForeground(Color.BLACK);
+        thead.setFont(new java.awt.Font("Segoe UI", java.awt.Font.BOLD, 14));
         DefaultTableCellRenderer alinearDerecha = new DefaultTableCellRenderer();
         alinearDerecha.setHorizontalAlignment(SwingConstants.RIGHT);
         DefaultTableCellRenderer alinearCentro = new DefaultTableCellRenderer();
@@ -312,7 +315,7 @@ public class CuentasClientes extends javax.swing.JPanel {
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(btnPago, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(45, 45, 45)
-                                .addComponent(btnGenePDF, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(btnGenePDF, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(0, 0, Short.MAX_VALUE))
                             .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jScrollPane1)
@@ -413,32 +416,7 @@ public class CuentasClientes extends javax.swing.JPanel {
                  tabla.addCell("Haber ($)");
                  
                  DefaultTableModel modelo = (DefaultTableModel)tablaCuenta.getModel();
-               /*  List<Object> lista =new ArrayList<>();
-                    for(int i=0; i<modelo.getRowCount(); i++) {
-                   lista.add(modelo.getValueAt(i, 0));
-                    lista.add(modelo.getValueAt(i, 2));
-                    lista.add(modelo.getValueAt(i, 3));
-                    lista.add(modelo.getValueAt(i, 4));
-                }
-                 // Utilizar un comparador personalizado para ordenar la lista por el primer elemento de cada grupo
-                   Collections.sort(lista, new Comparator<Object>() {
-                             @Override
-                         public int compare(Object a, Object b) {
-        // Asumiendo que los elementos son comparables (por ejemplo, si son números)
-                             return ((Comparable) a).compareTo(b);
-                         }
-                         
-                        });
-                    List<Object> listaOrd =new ArrayList<>();
-                   for (Object elemento : lista){
-                        listaOrd.add(elemento);
-                  }
-            for (Object listaOrd1 : listaOrd) {
-                tabla.addCell(listaOrd.get(0).toString());
-                tabla.addCell(listaOrd.get(1).toString());
-                tabla.addCell(listaOrd.get(2).toString());
-                tabla.addCell(listaOrd.get(3).toString());
-            }*/
+               
                 for(int i=0; i<modelo.getRowCount(); i++) {
                     tabla.addCell(modelo.getValueAt(i, 0).toString());
                     tabla.addCell(modelo.getValueAt(i, 2).toString());

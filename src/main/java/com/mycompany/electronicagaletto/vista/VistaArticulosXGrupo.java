@@ -2,34 +2,23 @@ package com.mycompany.electronicagaletto.vista;
 
 import static com.mycompany.electronicagaletto.ElectronicaGaletto.ShowJPanel;
 import com.mycompany.electronicagaletto.logica.Articulo;
-import com.mycompany.electronicagaletto.logica.Cliente;
 import com.mycompany.electronicagaletto.logica.ControladoraLogica;
 import com.mycompany.electronicagaletto.logica.Grupo;
 import com.mycompany.electronicagaletto.logica.Usuario;
-import com.mycompany.electronicagaletto.logica.Venta;
 import com.mycompany.electronicagaletto.persistencia.ControladoraPersistencia;
-import java.awt.BorderLayout;
-import java.awt.Component;
 import java.awt.Color;
-import javax.swing.JTable;
 import java.text.DecimalFormat;
-import javax.swing.table.TableCellRenderer;
 import java.util.List;
-import javax.swing.JDialog;
 import javax.swing.JOptionPane;
-import javax.swing.JScrollPane;
 import javax.swing.RowFilter;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableRowSorter;
-
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
-
 import com.itextpdf.text.Chunk;
 import com.itextpdf.text.Image;
 import com.itextpdf.text.Paragraph;
@@ -41,6 +30,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import javax.swing.table.JTableHeader;
 
 public class VistaArticulosXGrupo extends javax.swing.JPanel{
     Date fechaActual = new Date();
@@ -101,6 +91,9 @@ public class VistaArticulosXGrupo extends javax.swing.JPanel{
         
     tablaGrupo.setModel(datosTabla);
       
+    JTableHeader thead = tablaGrupo.getTableHeader();
+        thead.setForeground(Color.BLACK);
+        thead.setFont(new java.awt.Font("Segoe UI", java.awt.Font.BOLD, 14));
      DefaultTableCellRenderer alinearDerecha = new DefaultTableCellRenderer();
         alinearDerecha.setHorizontalAlignment(SwingConstants.RIGHT);
         DefaultTableCellRenderer alinearCentro = new DefaultTableCellRenderer();
@@ -140,7 +133,7 @@ public class VistaArticulosXGrupo extends javax.swing.JPanel{
             String con =df.format(arti.getCosto());
             String sin=con.replace(',', '.');
             String con1 =df.format(arti.getPrecio());
-            String sin1=con.replace(',', '.');
+            String sin1=con1.replace(',', '.');
             Object[] objeto = {arti.getIdArticulo(), arti.getNombreArticulo(), sin,
                 sin1, arti.getStock(),
             arti.getGrupo().getNombreGrupo(), arti.getCodBarra(), arti.getEstado()};
@@ -149,7 +142,9 @@ public class VistaArticulosXGrupo extends javax.swing.JPanel{
         }   
     }
     tblArticulos.setModel(datosTabla);
-        
+        JTableHeader thead = tblArticulos.getTableHeader();
+        thead.setForeground(Color.BLACK);
+        thead.setFont(new java.awt.Font("Segoe UI", java.awt.Font.BOLD, 14));
     
         DefaultTableCellRenderer alinearDerecha = new DefaultTableCellRenderer();
         alinearDerecha.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -234,7 +229,7 @@ public class VistaArticulosXGrupo extends javax.swing.JPanel{
         btnGenerarPDF.setBackground(new java.awt.Color(13, 71, 161));
         btnGenerarPDF.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
         btnGenerarPDF.setForeground(new java.awt.Color(255, 255, 255));
-        btnGenerarPDF.setText("Generar PDF");
+        btnGenerarPDF.setText("Generar reporte PDF");
         btnGenerarPDF.setBorder(null);
         btnGenerarPDF.setBorderPainted(false);
         btnGenerarPDF.addActionListener(new java.awt.event.ActionListener() {
@@ -290,7 +285,7 @@ public class VistaArticulosXGrupo extends javax.swing.JPanel{
                 .addGap(64, 64, 64)
                 .addComponent(btnLimpTodo, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnGenerarPDF, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnGenerarPDF, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(53, 53, 53))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(12, 12, 12)
@@ -366,10 +361,9 @@ public class VistaArticulosXGrupo extends javax.swing.JPanel{
                 header.scaleToFit(350, 800);
                 header.setAlignment(Chunk.ALIGN_CENTER);
                 Paragraph parrafo = new Paragraph();
-                parrafo.setAlignment(Paragraph.ALIGN_CENTER);
-                parrafo.add("Fecha: "+fecha+"\n\n");
+                parrafo.setAlignment(Paragraph.ALIGN_LEFT);
                 parrafo.setFont(FontFactory.getFont("Tahoma",18,Font.BOLD,BaseColor.DARK_GRAY));
-                parrafo.add("Articulos pertenecientes al grupo "+grupo.getNombreGrupo()+"\n\n");
+                parrafo.add("\n\nGrupo: "+grupo.getNombreGrupo()+"\n\n");
                 
                 
                 documento.open();
@@ -379,8 +373,8 @@ public class VistaArticulosXGrupo extends javax.swing.JPanel{
                 
                 PdfPTable tabla = new PdfPTable(4);
                  tabla.addCell("Nombre");
-                 tabla.addCell("Costo");
-                 tabla.addCell("Precio");
+                 tabla.addCell("Costo($)");
+                 tabla.addCell("Precio($)");
                  tabla.addCell("Stock");
                  
                  DefaultTableModel modelo = (DefaultTableModel)tblArticulos.getModel();
@@ -391,6 +385,11 @@ public class VistaArticulosXGrupo extends javax.swing.JPanel{
                     tabla.addCell(modelo.getValueAt(i, 3).toString());
                     tabla.addCell(modelo.getValueAt(i, 4).toString());
                 }documento.add(tabla);
+                Paragraph parra = new Paragraph();
+                parra.setAlignment(Paragraph.ALIGN_BOTTOM);
+                parra.setFont(FontFactory.getFont("Tahoma",14,Font.BOLD,BaseColor.DARK_GRAY));
+                parra.add("\nFecha: "+fecha+"\n");
+                documento.add(parra);
                 documento.close();
                 JOptionPane.showMessageDialog(null, "Reporte creado");
            

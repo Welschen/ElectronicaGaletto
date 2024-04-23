@@ -80,6 +80,11 @@ public class PagoVenta extends javax.swing.JPanel {
         jLabel3.setText("Total de la venta");
 
         txtPago.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
+        txtPago.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtPagoKeyTyped(evt);
+            }
+        });
 
         btnGuardar.setBackground(new java.awt.Color(13, 71, 161));
         btnGuardar.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -94,7 +99,7 @@ public class PagoVenta extends javax.swing.JPanel {
         });
 
         cmbForma.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
-        cmbForma.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Efectivo", "Transferencia", "Credito", "Debito", "Otro" }));
+        cmbForma.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Efectivo", "Transferencia", "Crédito", "Débito", "Otro" }));
 
         jLabel4.setBackground(new java.awt.Color(0, 0, 0));
         jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
@@ -212,6 +217,15 @@ public class PagoVenta extends javax.swing.JPanel {
     private void txtClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtClienteActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtClienteActionPerformed
+
+    private void txtPagoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPagoKeyTyped
+        int key= evt.getKeyChar();
+        boolean numero = key>= 48 && key<=57 || key==46;
+        
+        if(!numero){
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtPagoKeyTyped
 
     
     // Variables declaration - do not modify//GEN-BEGIN:variables

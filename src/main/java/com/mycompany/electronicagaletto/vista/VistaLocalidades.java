@@ -5,12 +5,14 @@ import com.mycompany.electronicagaletto.ElectronicaGaletto;
 import com.mycompany.electronicagaletto.logica.ControladoraLogica;
 import com.mycompany.electronicagaletto.logica.Localidad;
 import java.awt.Color;
+import java.awt.Font;
 import java.util.List;
 
 import javax.swing.RowFilter;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
 import javax.swing.table.TableRowSorter;
 
 public class VistaLocalidades extends javax.swing.JPanel {
@@ -38,7 +40,7 @@ public class VistaLocalidades extends javax.swing.JPanel {
             }
     };
         //nombres de las columnas
-    String titulos[] = {"Identificador","Localidad", "Codigo Postal", "Provincia"};
+    String titulos[] = {"Identificador","Localidad", "Código Postal", "Provincia"};
     datosTabla.setColumnIdentifiers(titulos);
         //traer datos desde la base
     List <Localidad> listaLocalidades = control.traerLocalidades();
@@ -52,6 +54,9 @@ public class VistaLocalidades extends javax.swing.JPanel {
         }   
     }
     tablaLocalidades.setModel(datosTabla);
+    JTableHeader thead = tablaLocalidades.getTableHeader();
+        thead.setForeground(Color.BLACK);
+        thead.setFont(new Font("Segoe UI", Font.BOLD, 14));
        DefaultTableCellRenderer alinearDerecha = new DefaultTableCellRenderer();
         alinearDerecha.setHorizontalAlignment(SwingConstants.RIGHT);
         DefaultTableCellRenderer alinearCentro = new DefaultTableCellRenderer();

@@ -3,6 +3,7 @@ package com.mycompany.electronicagaletto.vista;
 
 import com.mycompany.electronicagaletto.logica.ControladoraLogica;
 import java.awt.Color;
+import java.awt.event.KeyEvent;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 
@@ -54,18 +55,36 @@ public class AltaLocalidades extends javax.swing.JPanel {
                 txtNomActionPerformed(evt);
             }
         });
+        txtNom.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtNomKeyPressed(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtNomKeyTyped(evt);
+            }
+        });
 
         jLabel2.setBackground(new java.awt.Color(0, 0, 0));
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel2.setText("Codigo postal");
+        jLabel2.setText("Código postal");
 
         txtCP.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        txtCP.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtCPKeyTyped(evt);
+            }
+        });
 
         jLabel3.setBackground(new java.awt.Color(0, 0, 0));
         jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel3.setText("Provincia");
 
         txtProv.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        txtProv.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtProvKeyTyped(evt);
+            }
+        });
 
         btnGuardar.setBackground(new java.awt.Color(13, 71, 161));
         btnGuardar.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -146,7 +165,14 @@ public class AltaLocalidades extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
-        
+         if(txtCP.getText().isEmpty() || txtNom.getText().isEmpty() || txtProv.getText().isEmpty()){
+            JOptionPane optionPane = new JOptionPane("Debe completar todos los campos!");
+        optionPane.setMessageType(JOptionPane.INFORMATION_MESSAGE);
+        JDialog dialog = optionPane.createDialog("Atención");
+        dialog.setAlwaysOnTop(true);
+        dialog.setVisible(true);   
+        }
+         else{
         control.guardarLoc(txtNom.getText(), Integer.parseInt(txtCP.getText()), txtProv.getText());
         
         JOptionPane optionPane = new JOptionPane("Se guardo correctamente");
@@ -158,11 +184,37 @@ public class AltaLocalidades extends javax.swing.JPanel {
         txtCP.setText("");
         txtProv.setText("");
         txtNom.setText("");
+        }
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void txtNomActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNomActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtNomActionPerformed
+
+    private void txtNomKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNomKeyPressed
+
+    }//GEN-LAST:event_txtNomKeyPressed
+
+    private void txtProvKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtProvKeyTyped
+        if(!(Character.isLetter(evt.getKeyChar())) && !(evt.getKeyChar() == KeyEvent.VK_SPACE)){
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtProvKeyTyped
+
+    private void txtNomKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNomKeyTyped
+        if(!(Character.isLetter(evt.getKeyChar())) && !(evt.getKeyChar() == KeyEvent.VK_SPACE)){
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtNomKeyTyped
+
+    private void txtCPKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCPKeyTyped
+          int key= evt.getKeyChar();
+        boolean numero = key>= 48 && key<=57;
+        
+        if(!numero){
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtCPKeyTyped
 
     
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -76,10 +76,15 @@ public class EditArticulos extends javax.swing.JPanel {
         jLabel1.setText("Nombre");
 
         txtNombreArt.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        txtNombreArt.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtNombreArtKeyTyped(evt);
+            }
+        });
 
         jLabel2.setBackground(new java.awt.Color(0, 0, 0));
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel2.setText("Codigo de barras");
+        jLabel2.setText("Código de barras");
 
         txtCodBarras.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
 
@@ -88,11 +93,21 @@ public class EditArticulos extends javax.swing.JPanel {
         jLabel3.setText("Costo");
 
         txtCosto.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        txtCosto.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtCostoKeyTyped(evt);
+            }
+        });
 
         txtStock.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         txtStock.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtStockActionPerformed(evt);
+            }
+        });
+        txtStock.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtStockKeyTyped(evt);
             }
         });
 
@@ -222,6 +237,14 @@ public class EditArticulos extends javax.swing.JPanel {
     }//GEN-LAST:event_txtStockActionPerformed
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
+         if(txtCodBarras.getText().isEmpty() || txtCosto.getText().isEmpty() || txtNombreArt.getText().isEmpty()
+                 || txtStock.getText().isEmpty()){
+            JOptionPane optionPane = new JOptionPane("Debe completar todos los campos!");
+        optionPane.setMessageType(JOptionPane.INFORMATION_MESSAGE);
+        JDialog dialog = optionPane.createDialog("Atención");
+        dialog.setAlwaysOnTop(true);
+        dialog.setVisible(true);   
+        }else{
         String texto = txtCosto.getText();
         double costo = Double.parseDouble(texto);
         String txt1 = txtStock.getText();
@@ -237,7 +260,30 @@ public class EditArticulos extends javax.swing.JPanel {
         dialog.setVisible(true);
         
         ElectronicaGaletto.ShowJPanel(new VistaArticulos(usr));
+         }
     }//GEN-LAST:event_btnGuardarActionPerformed
+
+    private void txtNombreArtKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreArtKeyTyped
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNombreArtKeyTyped
+
+    private void txtStockKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtStockKeyTyped
+         int key= evt.getKeyChar();
+        boolean numero = key>= 48 && key<=57;
+        
+        if(!numero){
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtStockKeyTyped
+
+    private void txtCostoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCostoKeyTyped
+         int key= evt.getKeyChar();
+        boolean numero = key>= 48 && key<=57 || key==46;
+        
+        if(!numero){
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtCostoKeyTyped
 
     
     // Variables declaration - do not modify//GEN-BEGIN:variables

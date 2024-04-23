@@ -55,12 +55,22 @@ public class AltasGrupos extends javax.swing.JPanel {
         jLabel2.setText("Indicador de stock mínimo");
 
         txtBajoStock.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        txtBajoStock.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtBajoStockKeyTyped(evt);
+            }
+        });
 
         jLabel3.setBackground(new java.awt.Color(0, 0, 0));
         jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel3.setText("Beneficio");
 
         txtBene.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        txtBene.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtBeneKeyTyped(evt);
+            }
+        });
 
         btnNuevo.setBackground(new java.awt.Color(13, 71, 161));
         btnNuevo.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -81,23 +91,23 @@ public class AltasGrupos extends javax.swing.JPanel {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(10, 10, 10)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(669, 669, 669))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(690, 690, 690))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtNomGrupo)
-                            .addComponent(txtBajoStock)
-                            .addComponent(txtBene))
-                        .addGap(65, 65, 65))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(title, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(654, 654, 654))))
+                        .addGap(654, 654, 654))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGap(280, 280, 280))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGap(301, 301, 301))
+                            .addComponent(txtBene)
+                            .addComponent(txtNomGrupo)
+                            .addComponent(txtBajoStock))
+                        .addGap(389, 389, 389))))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(btnNuevo, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -122,7 +132,7 @@ public class AltasGrupos extends javax.swing.JPanel {
                 .addComponent(txtBene, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(161, 161, 161)
                 .addComponent(btnNuevo, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(47, 47, 47))
+                .addGap(32, 32, 32))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -138,6 +148,14 @@ public class AltasGrupos extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoActionPerformed
+         if(txtBajoStock.getText().isEmpty() || txtBene.getText().isEmpty() 
+                 || txtNomGrupo.getText().isEmpty()){
+            JOptionPane optionPane = new JOptionPane("Debe completar todos los campos!");
+        optionPane.setMessageType(JOptionPane.INFORMATION_MESSAGE);
+        JDialog dialog = optionPane.createDialog("Atención");
+        dialog.setAlwaysOnTop(true);
+        dialog.setVisible(true);   
+        }else{
         String txt0 = txtBene.getText();
         double bene = Double.parseDouble(txt0);
         String txt2 = txtBajoStock.getText();
@@ -154,7 +172,26 @@ public class AltasGrupos extends javax.swing.JPanel {
         txtBajoStock.setText("");
         txtBene.setText("");
         txtNomGrupo.setText("");
+         }
     }//GEN-LAST:event_btnNuevoActionPerformed
+
+    private void txtBajoStockKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBajoStockKeyTyped
+         int key= evt.getKeyChar();
+        boolean numero = key>= 48 && key<=57;
+        
+        if(!numero){
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtBajoStockKeyTyped
+
+    private void txtBeneKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBeneKeyTyped
+         int key= evt.getKeyChar();
+        boolean numero = key>= 48 && key<=57 || key==46;
+        
+        if(!numero){
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtBeneKeyTyped
 
     
     // Variables declaration - do not modify//GEN-BEGIN:variables

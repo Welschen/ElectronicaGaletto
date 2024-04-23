@@ -56,28 +56,28 @@
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" alignment="0" attributes="0">
-                          <Component id="jLabel2" max="32767" attributes="0"/>
-                          <EmptySpace min="-2" pref="669" max="-2" attributes="0"/>
-                      </Group>
-                      <Group type="102" alignment="0" attributes="0">
-                          <Component id="jLabel3" max="32767" attributes="0"/>
-                          <EmptySpace min="-2" pref="690" max="-2" attributes="0"/>
-                      </Group>
-                      <Group type="102" attributes="0">
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="txtNomGrupo" max="32767" attributes="0"/>
-                              <Component id="txtBajoStock" max="32767" attributes="0"/>
-                              <Component id="txtBene" alignment="0" max="32767" attributes="0"/>
-                          </Group>
-                          <EmptySpace min="-2" pref="65" max="-2" attributes="0"/>
-                      </Group>
                       <Group type="102" alignment="1" attributes="0">
                           <Group type="103" groupAlignment="1" attributes="0">
                               <Component id="title" alignment="0" max="32767" attributes="0"/>
                               <Component id="jLabel1" max="32767" attributes="0"/>
                           </Group>
                           <EmptySpace min="-2" pref="654" max="-2" attributes="0"/>
+                      </Group>
+                      <Group type="102" attributes="0">
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Group type="102" alignment="0" attributes="0">
+                                  <Component id="jLabel2" max="32767" attributes="0"/>
+                                  <EmptySpace min="280" pref="280" max="-2" attributes="0"/>
+                              </Group>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <Component id="jLabel3" max="32767" attributes="0"/>
+                                  <EmptySpace min="301" pref="301" max="-2" attributes="0"/>
+                              </Group>
+                              <Component id="txtBene" alignment="0" max="32767" attributes="0"/>
+                              <Component id="txtNomGrupo" alignment="0" max="32767" attributes="0"/>
+                              <Component id="txtBajoStock" alignment="0" max="32767" attributes="0"/>
+                          </Group>
+                          <EmptySpace min="-2" pref="389" max="-2" attributes="0"/>
                       </Group>
                   </Group>
               </Group>
@@ -107,7 +107,7 @@
                   <Component id="txtBene" min="-2" pref="30" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="161" max="-2" attributes="0"/>
                   <Component id="btnNuevo" min="-2" pref="30" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="47" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -153,6 +153,9 @@
               <Font name="Segoe UI" size="18" style="1"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtBajoStockKeyTyped"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel3">
           <Properties>
@@ -171,6 +174,9 @@
               <Font name="Segoe UI" size="18" style="1"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtBeneKeyTyped"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="btnNuevo">
           <Properties>

@@ -19,6 +19,7 @@ public class ElectronicaGaletto extends javax.swing.JFrame {
         initComponents();
         initStyles();   
         initContent();
+        
     }
 
     public ElectronicaGaletto(ControladoraLogica control, Usuario usr) {
@@ -27,10 +28,12 @@ public class ElectronicaGaletto extends javax.swing.JFrame {
         initContent();
         this.usr = usr;
         this.control = control;
+         lblUsu.setText("Usuario "+usr.getId());
     }
     private void initStyles() {
         lblEmpresa.putClientProperty("FlatLaf.style", "font: bold $h2.regular.font");
         lblEmpresa.setForeground(Color.white);
+       
     }
     
     private void initContent() {
@@ -63,7 +66,9 @@ public class ElectronicaGaletto extends javax.swing.JFrame {
         btnDevoluciones = new javax.swing.JButton();
         btnDevoluciones1 = new javax.swing.JButton();
         btnDevoluciones2 = new javax.swing.JButton();
+        btnDevoluciones3 = new javax.swing.JButton();
         header = new javax.swing.JPanel();
+        lblUsu = new javax.swing.JLabel();
         content = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -78,9 +83,12 @@ public class ElectronicaGaletto extends javax.swing.JFrame {
         menu.setForeground(new java.awt.Color(0, 0, 0));
         menu.setMinimumSize(new java.awt.Dimension(270, 640));
         menu.setPreferredSize(new java.awt.Dimension(270, 640));
+        menu.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         lblEmpresa.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblEmpresa.setText("Electrónica Galetto");
+        menu.add(lblEmpresa, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 38, 200, 24));
+        menu.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 90, 170, 12));
 
         btnArticulos.setBackground(new java.awt.Color(13, 71, 161));
         btnArticulos.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -98,6 +106,7 @@ public class ElectronicaGaletto extends javax.swing.JFrame {
                 btnArticulosActionPerformed(evt);
             }
         });
+        menu.add(btnArticulos, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 160, 210, 38));
 
         btnClientes.setBackground(new java.awt.Color(13, 71, 161));
         btnClientes.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -115,6 +124,7 @@ public class ElectronicaGaletto extends javax.swing.JFrame {
                 btnClientesActionPerformed(evt);
             }
         });
+        menu.add(btnClientes, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 240, 210, 38));
 
         btnGrupos.setBackground(new java.awt.Color(13, 71, 161));
         btnGrupos.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -132,6 +142,7 @@ public class ElectronicaGaletto extends javax.swing.JFrame {
                 btnGruposActionPerformed(evt);
             }
         });
+        menu.add(btnGrupos, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 280, 210, 38));
 
         btnVentas.setBackground(new java.awt.Color(13, 71, 161));
         btnVentas.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -149,11 +160,12 @@ public class ElectronicaGaletto extends javax.swing.JFrame {
                 btnVentasActionPerformed(evt);
             }
         });
+        menu.add(btnVentas, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 200, 210, 38));
 
         btnLocalidades.setBackground(new java.awt.Color(13, 71, 161));
         btnLocalidades.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnLocalidades.setForeground(new java.awt.Color(255, 255, 255));
-        btnLocalidades.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/archivar-factura (1).png"))); // NOI18N
+        btnLocalidades.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/pasador-de-ubicacion.png"))); // NOI18N
         btnLocalidades.setText("Localidades");
         btnLocalidades.setToolTipText("");
         btnLocalidades.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 10, 1, 1, new java.awt.Color(0, 0, 0)));
@@ -166,11 +178,12 @@ public class ElectronicaGaletto extends javax.swing.JFrame {
                 btnLocalidadesActionPerformed(evt);
             }
         });
+        menu.add(btnLocalidades, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 320, 210, 38));
 
         btnDevoluciones.setBackground(new java.awt.Color(13, 71, 161));
         btnDevoluciones.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnDevoluciones.setForeground(new java.awt.Color(255, 255, 255));
-        btnDevoluciones.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/archivar-factura (1).png"))); // NOI18N
+        btnDevoluciones.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/devolucion-de-producto.png"))); // NOI18N
         btnDevoluciones.setText("Devoluciones");
         btnDevoluciones.setToolTipText("");
         btnDevoluciones.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 10, 1, 1, new java.awt.Color(0, 0, 0)));
@@ -183,6 +196,7 @@ public class ElectronicaGaletto extends javax.swing.JFrame {
                 btnDevolucionesActionPerformed(evt);
             }
         });
+        menu.add(btnDevoluciones, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 360, 210, 38));
 
         btnDevoluciones1.setBackground(new java.awt.Color(13, 71, 161));
         btnDevoluciones1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -200,11 +214,12 @@ public class ElectronicaGaletto extends javax.swing.JFrame {
                 btnDevoluciones1ActionPerformed(evt);
             }
         });
+        menu.add(btnDevoluciones1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 400, 210, 38));
 
         btnDevoluciones2.setBackground(new java.awt.Color(13, 71, 161));
         btnDevoluciones2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnDevoluciones2.setForeground(new java.awt.Color(255, 255, 255));
-        btnDevoluciones2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/archivar-factura (1).png"))); // NOI18N
+        btnDevoluciones2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/agregar-producto.png"))); // NOI18N
         btnDevoluciones2.setText("Ingresar mercadería");
         btnDevoluciones2.setToolTipText("");
         btnDevoluciones2.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 10, 1, 1, new java.awt.Color(0, 0, 0)));
@@ -217,64 +232,48 @@ public class ElectronicaGaletto extends javax.swing.JFrame {
                 btnDevoluciones2ActionPerformed(evt);
             }
         });
+        menu.add(btnDevoluciones2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 440, 210, 38));
 
-        javax.swing.GroupLayout menuLayout = new javax.swing.GroupLayout(menu);
-        menu.setLayout(menuLayout);
-        menuLayout.setHorizontalGroup(
-            menuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(menuLayout.createSequentialGroup()
-                .addGap(6, 6, 6)
-                .addComponent(lblEmpresa, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(menuLayout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addComponent(btnArticulos, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addComponent(btnVentas, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addComponent(btnClientes, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addComponent(btnGrupos, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addComponent(btnLocalidades, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addComponent(btnDevoluciones, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addComponent(btnDevoluciones1, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addComponent(btnDevoluciones2, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
-        );
-        menuLayout.setVerticalGroup(
-            menuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(menuLayout.createSequentialGroup()
-                .addGap(38, 38, 38)
-                .addComponent(lblEmpresa, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(28, 28, 28)
-                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 12, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(58, 58, 58)
-                .addComponent(btnArticulos, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(2, 2, 2)
-                .addComponent(btnVentas, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(2, 2, 2)
-                .addComponent(btnClientes, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(2, 2, 2)
-                .addComponent(btnGrupos, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(2, 2, 2)
-                .addComponent(btnLocalidades, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(2, 2, 2)
-                .addComponent(btnDevoluciones, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(2, 2, 2)
-                .addComponent(btnDevoluciones1, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(2, 2, 2)
-                .addComponent(btnDevoluciones2, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
+        btnDevoluciones3.setBackground(new java.awt.Color(13, 71, 161));
+        btnDevoluciones3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnDevoluciones3.setForeground(new java.awt.Color(255, 255, 255));
+        btnDevoluciones3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/anadir-amigo.png"))); // NOI18N
+        btnDevoluciones3.setText("Nuevo usuario");
+        btnDevoluciones3.setToolTipText("");
+        btnDevoluciones3.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 10, 1, 1, new java.awt.Color(0, 0, 0)));
+        btnDevoluciones3.setBorderPainted(false);
+        btnDevoluciones3.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnDevoluciones3.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        btnDevoluciones3.setIconTextGap(14);
+        btnDevoluciones3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDevoluciones3ActionPerformed(evt);
+            }
+        });
+        menu.add(btnDevoluciones3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 480, 210, 38));
 
         header.setBackground(new java.awt.Color(25, 118, 210));
         header.setMinimumSize(new java.awt.Dimension(750, 100));
         header.setPreferredSize(new java.awt.Dimension(750, 100));
 
+        lblUsu.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        lblUsu.setForeground(new java.awt.Color(255, 255, 255));
+
         javax.swing.GroupLayout headerLayout = new javax.swing.GroupLayout(header);
         header.setLayout(headerLayout);
         headerLayout.setHorizontalGroup(
             headerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, headerLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(lblUsu, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(184, 184, 184))
         );
         headerLayout.setVerticalGroup(
             headerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
+            .addGroup(headerLayout.createSequentialGroup()
+                .addGap(29, 29, 29)
+                .addComponent(lblUsu)
+                .addContainerGap(71, Short.MAX_VALUE))
         );
 
         content.setBackground(new java.awt.Color(255, 255, 255));
@@ -362,13 +361,18 @@ public class ElectronicaGaletto extends javax.swing.JFrame {
         ShowJPanel(new IngresoMercaderia(usr));
     }//GEN-LAST:event_btnDevoluciones2ActionPerformed
 
+    private void btnDevoluciones3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDevoluciones3ActionPerformed
+        ShowJPanel(new AltaUsuario());
+    }//GEN-LAST:event_btnDevoluciones3ActionPerformed
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         FlatMaterialLighterIJTheme.setup();
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(() -> {
-            //new ElectronicaGaletto().setVisible(true);
-            new Login().setVisible(true);
+            Login log = new Login();
+            log.setLocationRelativeTo(null);
+            log.setVisible(true);
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -378,6 +382,7 @@ public class ElectronicaGaletto extends javax.swing.JFrame {
     private javax.swing.JButton btnDevoluciones;
     private javax.swing.JButton btnDevoluciones1;
     private javax.swing.JButton btnDevoluciones2;
+    private javax.swing.JButton btnDevoluciones3;
     private javax.swing.JButton btnGrupos;
     private javax.swing.JButton btnLocalidades;
     private javax.swing.JButton btnVentas;
@@ -385,6 +390,7 @@ public class ElectronicaGaletto extends javax.swing.JFrame {
     private javax.swing.JPanel header;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JLabel lblEmpresa;
+    private javax.swing.JLabel lblUsu;
     private javax.swing.JPanel menu;
     // End of variables declaration//GEN-END:variables
 }

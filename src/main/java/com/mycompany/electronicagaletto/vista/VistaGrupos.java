@@ -6,6 +6,7 @@ import com.mycompany.electronicagaletto.logica.ControladoraLogica;
 import com.mycompany.electronicagaletto.logica.Grupo;
 import com.mycompany.electronicagaletto.logica.Usuario;
 import java.awt.Color;
+import java.awt.Font;
 import java.text.DecimalFormat;
 import java.util.List;
 import javax.swing.JDialog;
@@ -14,6 +15,7 @@ import javax.swing.RowFilter;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
 import javax.swing.table.TableRowSorter;
 
 public class VistaGrupos extends javax.swing.JPanel {
@@ -58,6 +60,10 @@ public class VistaGrupos extends javax.swing.JPanel {
         }   
     }
     tablaGrupos.setModel(datosTabla);
+    
+    JTableHeader thead = tablaGrupos.getTableHeader();
+        thead.setForeground(Color.BLACK);
+        thead.setFont(new Font("Segoe UI", Font.BOLD, 14));
     DefaultTableCellRenderer alinearDerecha = new DefaultTableCellRenderer();
         alinearDerecha.setHorizontalAlignment(SwingConstants.RIGHT);
         DefaultTableCellRenderer alinearCentro = new DefaultTableCellRenderer();
@@ -270,6 +276,12 @@ public class VistaGrupos extends javax.swing.JPanel {
              int id =(int) tablaGrupos.getValueAt(fila, 0);
         Grupo grupo = control.traerGrupo(id);
         ShowJPanel(new VistaArticulosXGrupo(usr,grupo));
+        }else{
+             JOptionPane optionPane = new JOptionPane("Debe seleccionar un grupo");
+        optionPane.setMessageType(JOptionPane.ERROR_MESSAGE);
+        JDialog dialog = optionPane.createDialog("Error");
+        dialog.setAlwaysOnTop(true);
+        dialog.setVisible(true);
         }
         
     }//GEN-LAST:event_btnVerArticActionPerformed

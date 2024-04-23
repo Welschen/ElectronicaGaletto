@@ -38,6 +38,7 @@ import javax.swing.RowFilter;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
 import javax.swing.table.TableRowSorter;
 
 
@@ -97,6 +98,10 @@ public class ArticulosBajoStock extends javax.swing.JPanel {
     }
     
     tblArticulos.setModel(datosTabla);
+    
+    JTableHeader thead = tblArticulos.getTableHeader();
+        thead.setForeground(Color.BLACK);
+        thead.setFont(new java.awt.Font("Segoe UI", java.awt.Font.BOLD, 14));
       
      DefaultTableCellRenderer alinearDerecha = new DefaultTableCellRenderer();
         alinearDerecha.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -112,6 +117,7 @@ public class ArticulosBajoStock extends javax.swing.JPanel {
         tblArticulos.getColumnModel().getColumn(3).setCellRenderer(alinearDerecha);
         tblArticulos.getColumnModel().getColumn(4).setCellRenderer(alinearDerecha);
         tblArticulos.getColumnModel().getColumn(5).setCellRenderer(alinearDerecha);
+        tblArticulos.getColumnModel().getColumn(6).setCellRenderer(alinearDerecha);
         
     tblArticulos.setAutoCreateRowSorter(true);
     sorter2 = new TableRowSorter<>(datosTabla);

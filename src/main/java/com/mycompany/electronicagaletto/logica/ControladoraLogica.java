@@ -263,11 +263,11 @@ public class ControladoraLogica {
         item.setVenta(iDVenta);
         
         controlPersis.guardarItemVenta(item);
-        int stock =art.getStock()-cant;
+       /* int stock =art.getStock()-cant;
         art.setStock(stock);
-        controlPersis.editarArticulo(art);
+        controlPersis.editarArticulo(art);*/
         
-        LinkedList<ItemVenta> listaItemV = new LinkedList<ItemVenta>();
+        LinkedList<ItemVenta> listaItemV = new LinkedList<>();
         listaItemV.add(item);
         iDVenta.setListaItemVenta(listaItemV);
         controlPersis.editVenta(iDVenta);
@@ -275,6 +275,9 @@ public class ControladoraLogica {
 
     public List<ItemVenta> traerItemVenta(Cliente idCliente) {
         return controlPersis.traerItemVenta(idCliente);
+    }
+    public List<ItemVenta> traerItemVenta(Venta ven) {
+        return controlPersis.traerItemVenta(ven);
     }
 
     public void guardarDevol(Usuario usr, Cliente idCliente, double tot) {
@@ -355,5 +358,25 @@ public class ControladoraLogica {
 
     public void verStock(Articulo art) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    public boolean verificarDni(String dni) {
+        return controlPersis.verificarDni(dni);
+    }
+
+    public void guardar(String usu, String pass, String rol) {
+        Usuario usua = new Usuario();
+        
+        usua.setId(usu);
+        usua.setContrasenia(pass);
+        usua.setRol(rol);
+        
+        controlPersis.guardarUsuario(usua);
+    }
+
+    public void actualizarStock(Articulo art, int cant) {
+        int stock =art.getStock()-cant;
+        art.setStock(stock);
+        controlPersis.editarArticulo(art);
     }
 }

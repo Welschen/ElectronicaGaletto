@@ -5,6 +5,7 @@
 package com.mycompany.electronicagaletto.vista;
 
 import com.mycompany.electronicagaletto.ElectronicaGaletto;
+import com.mycompany.electronicagaletto.ElectronicaGaletto1;
 import com.mycompany.electronicagaletto.logica.ControladoraLogica;
 import com.mycompany.electronicagaletto.logica.Usuario;
 import java.awt.Color;
@@ -303,9 +304,9 @@ public class Login extends javax.swing.JFrame {
                 this.dispose();
             }
             if (rol.equals("Vendedor")) {
-               // PrincipalUser pUser = new PrincipalUser (control, usr);
-                ///pUser.setVisible(true);
-                //pUser.setLocationRelativeTo(null);
+                ElectronicaGaletto1 pAdmin = new ElectronicaGaletto1(control, usr);
+                pAdmin.setVisible(true);
+                pAdmin.setLocationRelativeTo(null);
                 this.dispose();
             } 
         }

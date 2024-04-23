@@ -5,6 +5,7 @@ import com.mycompany.electronicagaletto.logica.Cliente;
 import com.mycompany.electronicagaletto.logica.ControladoraLogica;
 import com.mycompany.electronicagaletto.logica.Usuario;
 import java.awt.Color;
+import java.awt.Font;
 import java.util.List;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
@@ -12,6 +13,7 @@ import javax.swing.RowFilter;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
 import javax.swing.table.TableRowSorter;
 
 public class VistaClientes extends javax.swing.JPanel {
@@ -39,7 +41,7 @@ public class VistaClientes extends javax.swing.JPanel {
                return false; 
             }
     };
-    String titulos[] = {"Identificador", "Apellido", "Nombre", "DNI", "Email", "Telefono", "Estado"};
+    String titulos[] = {"Identificador", "Apellido", "Nombre", "DNI", "Email", "Teléfono", "Estado"};
     datosTabla.setColumnIdentifiers(titulos);
      //traer datos desde la base
     List <Cliente> listaCliente = control.traerClientes();
@@ -54,6 +56,11 @@ public class VistaClientes extends javax.swing.JPanel {
         }   
     }
     tablaClientes.setModel(datosTabla);
+    
+    JTableHeader thead = tablaClientes.getTableHeader();
+        thead.setForeground(Color.BLACK);
+        thead.setFont(new Font("Segoe UI", Font.BOLD, 14));
+        
         DefaultTableCellRenderer alinearDerecha = new DefaultTableCellRenderer();
         alinearDerecha.setHorizontalAlignment(SwingConstants.RIGHT);
         DefaultTableCellRenderer alinearCentro = new DefaultTableCellRenderer();

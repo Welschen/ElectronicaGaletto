@@ -5,6 +5,9 @@ import com.mycompany.electronicagaletto.logica.ControladoraLogica;
 import com.mycompany.electronicagaletto.logica.Localidad;
 import com.mycompany.electronicagaletto.persistencia.ControladoraPersistencia;
 import java.awt.Color;
+import java.awt.event.KeyEvent;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
@@ -27,6 +30,7 @@ public class AltaClientes extends javax.swing.JPanel {
      private void getLocalidadCmb(JComboBox cmbLocalidad){
         controlPersis.getLocalidadCmb(cmbLocalidad);
     }
+     
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -76,6 +80,11 @@ public class AltaClientes extends javax.swing.JPanel {
         jLabel1.setText("Nombre");
 
         txtNom.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        txtNom.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtNomKeyTyped(evt);
+            }
+        });
 
         jLabel2.setBackground(new java.awt.Color(0, 0, 0));
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
@@ -87,18 +96,38 @@ public class AltaClientes extends javax.swing.JPanel {
                 txtApeActionPerformed(evt);
             }
         });
+        txtApe.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtApeKeyTyped(evt);
+            }
+        });
 
         jLabel3.setBackground(new java.awt.Color(0, 0, 0));
         jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel3.setText("DNI");
 
         txtDNI.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        txtDNI.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtDNIFocusLost(evt);
+            }
+        });
+        txtDNI.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtDNIKeyTyped(evt);
+            }
+        });
 
         jLabel4.setBackground(new java.awt.Color(0, 0, 0));
         jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel4.setText("Email (opcional)");
+        jLabel4.setText("Email");
 
         txtMail.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        txtMail.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtMailFocusLost(evt);
+            }
+        });
 
         jLabel5.setBackground(new java.awt.Color(0, 0, 0));
         jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
@@ -115,7 +144,7 @@ public class AltaClientes extends javax.swing.JPanel {
 
         jLabel6.setBackground(new java.awt.Color(0, 0, 0));
         jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel6.setText("Departamento (opcional)");
+        jLabel6.setText("Departamento ");
 
         txtPiso.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         txtPiso.addActionListener(new java.awt.event.ActionListener() {
@@ -126,7 +155,7 @@ public class AltaClientes extends javax.swing.JPanel {
 
         jLabel7.setBackground(new java.awt.Color(0, 0, 0));
         jLabel7.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel7.setText("Piso (opcional)");
+        jLabel7.setText("Piso");
 
         txtNumCalle.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         txtNumCalle.addActionListener(new java.awt.event.ActionListener() {
@@ -217,11 +246,9 @@ public class AltaClientes extends javax.swing.JPanel {
                                             .addComponent(txtNumCalle, javax.swing.GroupLayout.Alignment.LEADING)
                                             .addGroup(jPanel1Layout.createSequentialGroup()
                                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                    .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                                        .addComponent(txtPiso)
-                                                        .addGap(10, 10, 10)))
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                                    .addComponent(txtPiso, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                    .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                                     .addComponent(txtDepto)
                                                     .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
@@ -318,17 +345,27 @@ public class AltaClientes extends javax.swing.JPanel {
     }//GEN-LAST:event_txtCalleActionPerformed
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
+        if(txtApe.getText().isEmpty() || txtCalle.getText().isEmpty() || txtDNI.getText().isEmpty() ||
+                txtDepto.getText().isEmpty() || txtMail.getText().isEmpty() || txtNom.getText().isEmpty() ||
+                txtNumCalle.getText().isEmpty() || txtPiso.getText().isEmpty() || txtTel.getText().isEmpty()){
+            JOptionPane optionPane = new JOptionPane("Debe completar todos los campos!");
+        optionPane.setMessageType(JOptionPane.INFORMATION_MESSAGE);
+        JDialog dialog = optionPane.createDialog("Atención");
+        dialog.setAlwaysOnTop(true);
+        dialog.setVisible(true);   
+        }else{
+    
         //direcc
         String calle = txtCalle.getText();
         String num = txtNumCalle.getText();
         int nume = Integer.parseInt(num);
-        char dpto = txtPiso.getText().charAt(0);
+        char dpto = txtDepto.getText().charAt(0);
         String pis = txtPiso.getText();
         int piso = Integer.parseInt(pis);
         //cliente
         String nom = txtNom.getText();
         String ape = txtApe.getText();
-        String docu = txtDNI.getText();
+        String docu = txtDNI.getText().trim();
         int doc = Integer.parseInt(docu);
         String tel = txtTel.getText();
         String mail = txtMail.getText();
@@ -351,8 +388,10 @@ public class AltaClientes extends javax.swing.JPanel {
         txtPiso.setText("");
         txtTel.setText("");
         cmbLocalidad.setSelectedIndex(0);
+        }
     }//GEN-LAST:event_btnGuardarActionPerformed
-
+    
+    
     private void txtPisoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPisoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtPisoActionPerformed
@@ -368,6 +407,61 @@ public class AltaClientes extends javax.swing.JPanel {
     private void txtDeptoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDeptoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtDeptoActionPerformed
+
+    private void txtNomKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNomKeyTyped
+        if(!(Character.isLetter(evt.getKeyChar())) && !(evt.getKeyChar() == KeyEvent.VK_SPACE)){
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtNomKeyTyped
+
+    private void txtApeKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtApeKeyTyped
+        if(!(Character.isLetter(evt.getKeyChar())) && !(evt.getKeyChar() == KeyEvent.VK_SPACE)){
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtApeKeyTyped
+
+    private void txtDNIKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDNIKeyTyped
+        int key= evt.getKeyChar();
+        boolean numero = key>= 48 && key<=57;
+        
+        if(!numero){
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtDNIKeyTyped
+    public boolean isEmail(String correo){
+        Pattern pat=null;
+        Matcher mat=null;
+        pat = Pattern.compile("^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$");
+        mat = pat.matcher(correo);
+        return mat.find();
+    }
+    private void txtMailFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtMailFocusLost
+        if (isEmail(txtMail.getText())){
+            
+        }else{
+            JOptionPane.showMessageDialog(null,"El email ingresado no es válido","Validar mail"
+            ,JOptionPane.INFORMATION_MESSAGE);
+            txtMail.requestFocus();
+        }
+    }//GEN-LAST:event_txtMailFocusLost
+
+    private void txtDNIFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtDNIFocusLost
+        String dni = txtDNI.getText().trim();
+        boolean existe;
+        existe = control.verificarDni(dni);
+         if (!dni.isEmpty()) {
+                    if (!existe) {
+                     
+                    } else {
+                        JOptionPane.showMessageDialog(null, "El DNI ingresado ya existe.");
+                        txtDNI.setText(" ");
+                        txtDNI.requestFocus();
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(null, "Por favor ingrese un DNI.");
+                }
+            
+    }//GEN-LAST:event_txtDNIFocusLost
 
     
     // Variables declaration - do not modify//GEN-BEGIN:variables

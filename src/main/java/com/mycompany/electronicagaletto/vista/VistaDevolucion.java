@@ -1,4 +1,5 @@
 package com.mycompany.electronicagaletto.vista;
+import com.mycompany.electronicagaletto.ElectronicaGaletto;
 
 import com.mycompany.electronicagaletto.logica.Articulo;
 import com.mycompany.electronicagaletto.logica.Cliente;
@@ -6,9 +7,10 @@ import com.mycompany.electronicagaletto.logica.ControladoraLogica;
 import com.mycompany.electronicagaletto.logica.Devolucion;
 import com.mycompany.electronicagaletto.logica.ItemVenta;
 import com.mycompany.electronicagaletto.logica.Usuario;
-import com.mycompany.electronicagaletto.logica.Venta;
 import com.mycompany.electronicagaletto.persistencia.ControladoraPersistencia;
 import java.awt.Color;
+import java.awt.Font;
+import java.text.DecimalFormat;
 
 import java.util.List;
 
@@ -18,6 +20,7 @@ import javax.swing.RowFilter;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
 import javax.swing.table.TableRowSorter;
 
 
@@ -29,6 +32,8 @@ public class VistaDevolucion extends javax.swing.JPanel {
     Usuario usr;
     Cliente cliente;
     Devolucion devol;
+    DecimalFormat df = new DecimalFormat("0.00"); 
+    double suma;
     public VistaDevolucion(Usuario usr) {
         control = new ControladoraLogica();
         this.usr=usr;
@@ -66,6 +71,10 @@ public class VistaDevolucion extends javax.swing.JPanel {
         }   
     }
     tablaClientes.setModel(datosTabla);
+    
+    JTableHeader thead = tablaClientes.getTableHeader();
+        thead.setForeground(Color.BLACK);
+        thead.setFont(new Font("Segoe UI", Font.BOLD, 14));
         DefaultTableCellRenderer alinearDerecha = new DefaultTableCellRenderer();
         alinearDerecha.setHorizontalAlignment(SwingConstants.RIGHT);
         DefaultTableCellRenderer alinearCentro = new DefaultTableCellRenderer();
@@ -89,8 +98,8 @@ public class VistaDevolucion extends javax.swing.JPanel {
                return false; 
             }
     };
-    String titulos[] = {"Identificador", "Nombre","Código de barras", "Precio unitario", 
-        "Cantidad", "Subtotal"};
+    String titulos[] = {"Identificador", "Nombre","Código de barras", "Precio unitario ($)", 
+        "Cantidad", "Subtotal ($)"};
     datosTabla.setColumnIdentifiers(titulos);
    
     //traer datos desde la base
@@ -100,10 +109,14 @@ public class VistaDevolucion extends javax.swing.JPanel {
     if (!listaItemV.isEmpty()){
         for (ItemVenta item : listaItemV ) {
             int can = item.getCantidad();
+             String con =df.format(item.getPrecioVta());
+               String sinTot=con.replace(',', '.');
             double subt = item.getPrecioVta();
             double pu=subt/can;
+            String con1 =df.format(pu);
+               String sin1=con1.replace(',', '.');
             Object[] objeto = {item.getArticu().getIdArticulo(), item.getArticu().getNombreArticulo(), 
-                item.getArticu().getCodBarra(), pu, can, subt};
+                item.getArticu().getCodBarra(), sin1, can, sinTot};
              
             
             datosTabla.addRow(objeto);
@@ -117,6 +130,10 @@ public class VistaDevolucion extends javax.swing.JPanel {
     }
     
     tblArticulos.setModel(datosTabla);
+    
+    JTableHeader thead = tblArticulos.getTableHeader();
+        thead.setForeground(Color.BLACK);
+        thead.setFont(new Font("Segoe UI", Font.BOLD, 14));
     DefaultTableCellRenderer alinearDerecha = new DefaultTableCellRenderer();
         alinearDerecha.setHorizontalAlignment(SwingConstants.RIGHT);
         DefaultTableCellRenderer alinearCentro = new DefaultTableCellRenderer();
@@ -124,11 +141,11 @@ public class VistaDevolucion extends javax.swing.JPanel {
         DefaultTableCellRenderer alinearIzquierda = new DefaultTableCellRenderer();
         alinearIzquierda.setHorizontalAlignment(SwingConstants.LEFT);
         // Aplicar las alineaciones a las columnas específicas
-        tblArticulos.getColumnModel().getColumn(0).setCellRenderer(alinearCentro);
+        tblArticulos.getColumnModel().getColumn(0).setCellRenderer(alinearDerecha);
         tblArticulos.getColumnModel().getColumn(1).setCellRenderer(alinearIzquierda);
         tblArticulos.getColumnModel().getColumn(2).setCellRenderer(alinearDerecha);
         tblArticulos.getColumnModel().getColumn(3).setCellRenderer(alinearDerecha);
-        tblArticulos.getColumnModel().getColumn(4).setCellRenderer(alinearCentro);
+        tblArticulos.getColumnModel().getColumn(4).setCellRenderer(alinearDerecha);
         tblArticulos.getColumnModel().getColumn(5).setCellRenderer(alinearDerecha);
        // tablaClientes.getColumnModel().getColumn(6).setCellRenderer(alinearDerecha);
     tblArticulos.setAutoCreateRowSorter(true);
@@ -145,10 +162,14 @@ public class VistaDevolucion extends javax.swing.JPanel {
             }
     };
     String titulos[] = {"Identificador", "Nombre","Código de barras","Estado",
-        "Precio unitario", "Cantidad", "Subtotal"};
+        "Precio unitario ($)", "Cantidad", "Subtotal ($)"};
     datosTabla2.setColumnIdentifiers(titulos);
   
     tblVenta.setModel(datosTabla2);
+    
+    JTableHeader thead = tblVenta.getTableHeader();
+        thead.setForeground(Color.BLACK);
+        thead.setFont(new Font("Segoe UI", Font.BOLD, 14));
         DefaultTableCellRenderer alinearDerecha = new DefaultTableCellRenderer();
         alinearDerecha.setHorizontalAlignment(SwingConstants.RIGHT);
         DefaultTableCellRenderer alinearCentro = new DefaultTableCellRenderer();
@@ -156,13 +177,13 @@ public class VistaDevolucion extends javax.swing.JPanel {
         DefaultTableCellRenderer alinearIzquierda = new DefaultTableCellRenderer();
         alinearIzquierda.setHorizontalAlignment(SwingConstants.LEFT);
         // Aplicar las alineaciones a las columnas específicas
-        tblVenta.getColumnModel().getColumn(0).setCellRenderer(alinearCentro);
+        tblVenta.getColumnModel().getColumn(0).setCellRenderer(alinearDerecha);
         tblVenta.getColumnModel().getColumn(1).setCellRenderer(alinearIzquierda);
         tblVenta.getColumnModel().getColumn(2).setCellRenderer(alinearDerecha);
         tblVenta.getColumnModel().getColumn(6).setCellRenderer(alinearDerecha);
         tblVenta.getColumnModel().getColumn(4).setCellRenderer(alinearDerecha);
-        tblVenta.getColumnModel().getColumn(5).setCellRenderer(alinearCentro);
-        tblVenta.getColumnModel().getColumn(3).setCellRenderer(alinearCentro);
+        tblVenta.getColumnModel().getColumn(5).setCellRenderer(alinearDerecha);
+        
      }
      
     @SuppressWarnings("unchecked")
@@ -235,11 +256,15 @@ public class VistaDevolucion extends javax.swing.JPanel {
         txtCant.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtCant.setText("1");
         txtCant.setActionCommand("<Not Set>");
-        txtCant.setBorder(null);
         txtCant.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
         txtCant.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtCantActionPerformed(evt);
+            }
+        });
+        txtCant.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtCantKeyTyped(evt);
             }
         });
 
@@ -356,8 +381,8 @@ public class VistaDevolucion extends javax.swing.JPanel {
                                     .addComponent(btnConfirmarVenta, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                                         .addComponent(jLabel3)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(txtTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(txtTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE))))))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                         .addGap(25, 25, 25)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -375,8 +400,8 @@ public class VistaDevolucion extends javax.swing.JPanel {
                                 .addComponent(txtArtic)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jLabel4)
-                                .addGap(19, 19, 19)
-                                .addComponent(txtCant, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtCant, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(btnAgregarArt, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addGap(25, 25, 25))
@@ -434,30 +459,41 @@ public class VistaDevolucion extends javax.swing.JPanel {
             int cant = Integer.parseInt(txtCant.getText());
             int canVenta =Integer.parseInt(tblArticulos.getValueAt(fila, 4).toString());
             if(cant<=canVenta){
-                double precio =(double) tblArticulos.getValueAt(fila, 3);
-            double subtot = cant * precio;
+                double precio =Double.valueOf(tblArticulos.getValueAt(fila, 3).toString());
+           
             String estado;
             if(rbtnCambio.isSelected()){
                 estado="Cambio";
             }else
                 estado="Devolución";
+            if( "Cambio".equals(estado)){
+                precio=0;
+            }
+             double subtot = cant * precio;
+             String con =df.format(subtot);
+               String sinTot=con.replace(',', '.');
+               String con1 =df.format(precio);
+               String sin1=con1.replace(',', '.');
             Object[] obj = {tblArticulos.getValueAt(fila, 0), tblArticulos.getValueAt(fila, 1),
-            tblArticulos.getValueAt(fila, 2),estado,precio, cant, subtot};
+            tblArticulos.getValueAt(fila, 2),estado,sin1, cant, sinTot};
             int canVentaNuevo=canVenta-cant;
             tblArticulos.setValueAt(canVentaNuevo,fila, 4);
             double subtNuevo= canVentaNuevo*precio;
             tblArticulos.setValueAt(subtNuevo,fila, 5);
             DefaultTableModel modelo = (DefaultTableModel)tblVenta.getModel();
-            double suma = subtot;
+             suma = subtot;
                 for(int i=0; i<modelo.getRowCount(); i++) {
-            suma += Double.parseDouble(modelo.getValueAt(i, 6).toString());  
-}           txtTotal.setText(String.valueOf(suma));
+            suma += Double.parseDouble(modelo.getValueAt(i, 6).toString()); 
+                }
+                String s =df.format(suma);
+               String sum=s.replace(',', '.');
+           txtTotal.setText("$ "+String.valueOf(sum));
             modelo.addRow(obj);
             txtCant.setText("1");
             rbtnCambio.setSelected(true);
             
             }else{
-              JOptionPane optionPane = new JOptionPane("La cantidad del articulo registrado en la venta es menor a la cantidad que desea devolver o cambiar");
+              JOptionPane optionPane = new JOptionPane("La cantidad del artículo registrado en la venta es menor a la cantidad que desea devolver o cambiar");
              optionPane.setMessageType(JOptionPane.INFORMATION_MESSAGE);  
              JDialog dialog = optionPane.createDialog("Error");
             dialog.setAlwaysOnTop(true);
@@ -482,7 +518,7 @@ public class VistaDevolucion extends javax.swing.JPanel {
 
     private void btnConfirmarVentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmarVentaActionPerformed
          if (tblVenta.getRowCount()>0){
-             double tot = Double.parseDouble(txtTotal.getText());
+             double tot = suma;
              control.guardarDevol(usr,cliente,tot);
              int idDevo = control.traeridDevol();
              devol = control.traerDevolucion(idDevo);
@@ -492,7 +528,7 @@ public class VistaDevolucion extends javax.swing.JPanel {
                  
                  int idArt = Integer.parseInt(tblVenta.getValueAt(i, 0).toString());
                  Articulo art = control.traerArticulo(idArt);
-                 double subTot = Double.parseDouble(tblVenta.getValueAt(i, 6).toString());
+                 double subTot = Double.valueOf(tblVenta.getValueAt(i, 6).toString());
                  boolean esCambio;
                  String state = (String) tblVenta.getValueAt(i, 3);
                  if("Cambio".equals(state)){
@@ -510,6 +546,7 @@ public class VistaDevolucion extends javax.swing.JPanel {
                   JDialog dialog = optionPane.createDialog("Información");
                 dialog.setAlwaysOnTop(true);
                 dialog.setVisible(true);
+                ElectronicaGaletto.ShowJPanel(new VistaDevolucion(usr));
              }
     }//GEN-LAST:event_btnConfirmarVentaActionPerformed
     
@@ -538,6 +575,15 @@ public class VistaDevolucion extends javax.swing.JPanel {
         cliente = control.traerCliente(id);
         cargarTabla();
     }//GEN-LAST:event_tablaClientesMouseClicked
+
+    private void txtCantKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCantKeyTyped
+        int key= evt.getKeyChar();
+        boolean numero = key>= 48 && key<=57;
+        
+        if(!numero){
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtCantKeyTyped
      private void filtrar(){
         String texto = txtArtic.getText();
         String filtro = "(?i)" + texto; // agrega la flag (?i)

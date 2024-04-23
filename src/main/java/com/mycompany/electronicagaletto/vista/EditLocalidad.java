@@ -5,6 +5,7 @@ import com.mycompany.electronicagaletto.ElectronicaGaletto;
 import com.mycompany.electronicagaletto.logica.ControladoraLogica;
 import com.mycompany.electronicagaletto.logica.Localidad;
 import java.awt.Color;
+import java.awt.event.KeyEvent;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 
@@ -55,16 +56,31 @@ public class EditLocalidad extends javax.swing.JPanel {
         jLabel1.setText("Nombre");
 
         txtNom.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        txtNom.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtNomKeyTyped(evt);
+            }
+        });
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel2.setText("Codigo postal");
+        jLabel2.setText("Código postal");
 
         txtCP.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        txtCP.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtCPKeyTyped(evt);
+            }
+        });
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel3.setText("Provincia");
 
         txtProv.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        txtProv.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtProvKeyTyped(evt);
+            }
+        });
 
         btnGuardar.setBackground(new java.awt.Color(13, 71, 161));
         btnGuardar.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -101,8 +117,8 @@ public class EditLocalidad extends javax.swing.JPanel {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txtProv)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(258, 258, 258)
-                                .addComponent(btnGuardar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(435, 435, 435))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -145,6 +161,13 @@ public class EditLocalidad extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
+        if(txtCP.getText().isEmpty() || txtNom.getText().isEmpty() || txtProv.getText().isEmpty()){
+            JOptionPane optionPane = new JOptionPane("Debe completar todos los campos!");
+        optionPane.setMessageType(JOptionPane.INFORMATION_MESSAGE);
+        JDialog dialog = optionPane.createDialog("Atención");
+        dialog.setAlwaysOnTop(true);
+        dialog.setVisible(true);   
+        }else{
         String cod= txtCP.getText();
         int cp = Integer.parseInt(cod);
         control.editarLocalidad(loca,txtNom.getText(),cp ,txtProv.getText());
@@ -155,7 +178,29 @@ public class EditLocalidad extends javax.swing.JPanel {
         dialog.setAlwaysOnTop(true);
         dialog.setVisible(true);
         ElectronicaGaletto.ShowJPanel(new VistaLocalidades());
+        }
     }//GEN-LAST:event_btnGuardarActionPerformed
+
+    private void txtNomKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNomKeyTyped
+         if(!(Character.isLetter(evt.getKeyChar())) && !(evt.getKeyChar() == KeyEvent.VK_SPACE)){
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtNomKeyTyped
+
+    private void txtCPKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCPKeyTyped
+        int key= evt.getKeyChar();
+        boolean numero = key>= 48 && key<=57;
+        
+        if(!numero){
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtCPKeyTyped
+
+    private void txtProvKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtProvKeyTyped
+        if(!(Character.isLetter(evt.getKeyChar())) && !(evt.getKeyChar() == KeyEvent.VK_SPACE)){
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtProvKeyTyped
 
     
     // Variables declaration - do not modify//GEN-BEGIN:variables

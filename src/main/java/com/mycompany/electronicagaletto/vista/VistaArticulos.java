@@ -6,6 +6,7 @@ import com.mycompany.electronicagaletto.logica.Articulo;
 import com.mycompany.electronicagaletto.logica.ControladoraLogica;
 import com.mycompany.electronicagaletto.logica.Usuario;
 import java.awt.Color;
+import java.awt.Font;
 import java.text.DecimalFormat;
 import java.util.List;
 import javax.swing.JDialog;
@@ -14,7 +15,7 @@ import javax.swing.RowFilter;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableCellRenderer;
+import javax.swing.table.JTableHeader;
 import javax.swing.table.TableRowSorter;
 
 public class VistaArticulos extends javax.swing.JPanel {
@@ -45,7 +46,7 @@ public class VistaArticulos extends javax.swing.JPanel {
             }
     };
         //nombres de las columnas
-    String titulos[] = {"Identificador","Nombre", "Costo", "Precio", "Stock","Stock mínimo", "Grupo", 
+    String titulos[] = {"Identificador","Nombre", "Costo($)", "Precio($)", "Stock","Stock mínimo", "Grupo", 
         "Código de barras", "Estado"};
     datosTabla.setColumnIdentifiers(titulos);
         //traer datos desde la base
@@ -56,7 +57,7 @@ public class VistaArticulos extends javax.swing.JPanel {
             String con =df.format(arti.getCosto());
             String sin=con.replace(',', '.');
             String con1 =df.format(arti.getPrecio());
-            String sin1=con.replace(',', '.');
+            String sin1=con1.replace(',', '.');
             Object[] objeto = {arti.getIdArticulo(), arti.getNombreArticulo(), sin,
                 sin1, arti.getStock(), arti.getGrupo().getBajoStock(),
             arti.getGrupo().getNombreGrupo(), arti.getCodBarra(), arti.getEstado()};
@@ -65,7 +66,9 @@ public class VistaArticulos extends javax.swing.JPanel {
         }   
     }
     tablaArticulos.setModel(datosTabla);
-        
+        JTableHeader thead = tablaArticulos.getTableHeader();
+        thead.setForeground(Color.BLACK);
+        thead.setFont(new Font("Segoe UI", Font.BOLD, 14));
     
         DefaultTableCellRenderer alinearDerecha = new DefaultTableCellRenderer();
         alinearDerecha.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -195,7 +198,7 @@ public class VistaArticulos extends javax.swing.JPanel {
         btnEditar1.setBackground(new java.awt.Color(13, 71, 161));
         btnEditar1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnEditar1.setForeground(new java.awt.Color(255, 255, 255));
-        btnEditar1.setText("Articulos con stock bajo ");
+        btnEditar1.setText("Artículos con stock bajo ");
         btnEditar1.setBorder(null);
         btnEditar1.setBorderPainted(false);
         btnEditar1.setMaximumSize(new java.awt.Dimension(44, 20));

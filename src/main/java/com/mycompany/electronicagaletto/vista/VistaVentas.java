@@ -7,27 +7,24 @@ import com.mycompany.electronicagaletto.logica.ControladoraLogica;
 import com.mycompany.electronicagaletto.logica.Usuario;
 import com.mycompany.electronicagaletto.logica.Venta;
 import com.mycompany.electronicagaletto.persistencia.ControladoraPersistencia;
-import java.awt.BorderLayout;
-import java.awt.Component;
 import java.awt.Color;
-import javax.swing.JTable;
+import java.awt.Font;
 import java.text.DecimalFormat;
-import javax.swing.table.TableCellRenderer;
 import java.util.List;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
-import javax.swing.JScrollPane;
 import javax.swing.RowFilter;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableCellRenderer;
+import javax.swing.table.JTableHeader;
 import javax.swing.table.TableRowSorter;
 
 
 
 public class VistaVentas extends javax.swing.JPanel{
     ControladoraLogica control =null;
+    Venta iDVenta;
     ControladoraPersistencia controlPersis = new ControladoraPersistencia();
     private TableRowSorter<DefaultTableModel> sorter;
     private TableRowSorter<DefaultTableModel> sorter2;
@@ -74,6 +71,11 @@ public class VistaVentas extends javax.swing.JPanel{
         }   
     }
     tablaClientes.setModel(datosTabla);
+    
+     JTableHeader thead = tablaClientes.getTableHeader();
+        thead.setForeground(Color.BLACK);
+        thead.setFont(new Font("Segoe UI", Font.BOLD, 14));
+        
         DefaultTableCellRenderer alinearDerecha = new DefaultTableCellRenderer();
         alinearDerecha.setHorizontalAlignment(SwingConstants.RIGHT);
         DefaultTableCellRenderer alinearCentro = new DefaultTableCellRenderer();
@@ -89,6 +91,7 @@ public class VistaVentas extends javax.swing.JPanel{
     sorter2 = new TableRowSorter<>(datosTabla);
     tablaClientes.setRowSorter(sorter2);
     }
+   
     private void cargarTabla(){
         DefaultTableModel datosTabla = new DefaultTableModel(){
            
@@ -98,7 +101,7 @@ public class VistaVentas extends javax.swing.JPanel{
             } 
           
     };
-     String titulos[] = {"Identificador", "Nombre", "Precio" ,"Código de barras","Stock", "Stock mínimo"};
+     String titulos[] = {"Identificador", "Nombre", "Precio ($)" ,"Código de barras","Stock", "Stock mínimo"};
         datosTabla.setColumnIdentifiers(titulos);
     //traer datos desde la base
     List <Articulo> listaArticulos = control.traerArticulos();
@@ -118,7 +121,11 @@ public class VistaVentas extends javax.swing.JPanel{
     }
     
     tblArticulos.setModel(datosTabla);
-      
+    
+       JTableHeader thead = tblArticulos.getTableHeader();
+        thead.setForeground(Color.BLACK);
+        thead.setFont(new Font("Segoe UI", Font.BOLD, 14));
+        
      DefaultTableCellRenderer alinearDerecha = new DefaultTableCellRenderer();
         alinearDerecha.setHorizontalAlignment(SwingConstants.RIGHT);
         DefaultTableCellRenderer alinearCentro = new DefaultTableCellRenderer();
@@ -148,10 +155,15 @@ public class VistaVentas extends javax.swing.JPanel{
                return false; 
             }
     };
-    String titulos[] = {"Identificador", "Nombre", "Precio unitario", "Cantidad", "Subtotal"};
+    String titulos[] = {"Identificador", "Nombre", "Precio unitario ($)", "Cantidad", "Subtotal ($)"};
     datosTabla.setColumnIdentifiers(titulos);
   
     tblVenta.setModel(datosTabla);
+    
+     JTableHeader thead = tblVenta.getTableHeader();
+        thead.setForeground(Color.BLACK);
+        thead.setFont(new Font("Segoe UI", Font.BOLD, 14));
+        
      DefaultTableCellRenderer alinearDerecha = new DefaultTableCellRenderer();
         alinearDerecha.setHorizontalAlignment(SwingConstants.RIGHT);
         DefaultTableCellRenderer alinearCentro = new DefaultTableCellRenderer();
@@ -224,11 +236,15 @@ public class VistaVentas extends javax.swing.JPanel{
         txtCant.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtCant.setText("1");
         txtCant.setActionCommand("<Not Set>");
-        txtCant.setBorder(null);
         txtCant.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
         txtCant.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtCantActionPerformed(evt);
+            }
+        });
+        txtCant.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtCantKeyTyped(evt);
             }
         });
 
@@ -359,7 +375,7 @@ public class VistaVentas extends javax.swing.JPanel{
         btnReporteVenta.setBackground(new java.awt.Color(13, 71, 161));
         btnReporteVenta.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnReporteVenta.setForeground(new java.awt.Color(255, 255, 255));
-        btnReporteVenta.setText("Reportes");
+        btnReporteVenta.setText("Consultas");
         btnReporteVenta.setBorder(null);
         btnReporteVenta.setBorderPainted(false);
         btnReporteVenta.addActionListener(new java.awt.event.ActionListener() {
@@ -410,9 +426,9 @@ public class VistaVentas extends javax.swing.JPanel{
                                 .addComponent(txtArtic)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jLabel4)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(txtCant, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(12, 12, 12)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtCant, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(btnAgregarArt, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(3, 3, 3)
@@ -485,11 +501,11 @@ public class VistaVentas extends javax.swing.JPanel{
               String sin=con.replace(',', '.');
             double subtot = cant * precio;
             String con1 =df.format(subtot);
-            String sin1=con.replace(',', '.');
+            String sin1=con1.replace(',', '.');
             Object[] obj = {tblArticulos.getValueAt(fila, 0), tblArticulos.getValueAt(fila, 1),
             sin, cant, sin1};
             int stockNuevo=stock-cant;
-            tblArticulos.setValueAt(stockNuevo,fila, 3);
+            tblArticulos.setValueAt(stockNuevo,fila, 4);
             DefaultTableModel modelo = (DefaultTableModel)tblVenta.getModel();
             suma = subtot;
                 for(int i=0; i<modelo.getRowCount(); i++) {
@@ -528,7 +544,7 @@ public class VistaVentas extends javax.swing.JPanel{
              
              control.guardarVenta(usr,cliente,suma);
              int idVent = control.traeridVenta();
-             Venta iDVenta = control.traerVenta(idVent);
+              iDVenta = control.traerVenta(idVent);
             
              for (int i=0; i <tblVenta.getRowCount(); i++){
                 
@@ -536,10 +552,11 @@ public class VistaVentas extends javax.swing.JPanel{
                  Articulo art = control.traerArticulo(idArt);
                  double subTot = Double.parseDouble(tblVenta.getValueAt(i, 4).toString());
                  int cant = Integer.parseInt(tblVenta.getValueAt(i, 3).toString());
+                 control.actualizarStock(art,cant);
                  control.guardarItemVenta(cant, subTot, iDVenta, art);
                  int st =art.getStock();
                  int stMin = art.getGrupo().getBajoStock();
-                 if(st-stMin==0){
+                 if(st==0){
                      alerta0(art);
                  }else if(st<=stMin){
                      alerta(art);
@@ -588,28 +605,38 @@ public class VistaVentas extends javax.swing.JPanel{
 
     private void btnLimpiarUnoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarUnoActionPerformed
         int num =tblVenta.getSelectedRow();
-        int idArt = (int) tblVenta.getValueAt(num, 0);
-        int cant = (int) tblVenta.getValueAt(num, 3);
+        int idArt = Integer.parseInt(tblVenta.getValueAt(num, 0).toString());
+        int cant = Integer.parseInt(tblVenta.getValueAt(num, 3).toString());
         retornarStock(idArt,cant,num);
     }//GEN-LAST:event_btnLimpiarUnoActionPerformed
 
     private void btnReporteVentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReporteVentaActionPerformed
         ShowJPanel(new VerVentas(usr,cliente));
     }//GEN-LAST:event_btnReporteVentaActionPerformed
+
+    private void txtCantKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCantKeyTyped
+        int key= evt.getKeyChar();
+        boolean numero = key>= 48 && key<=57;
+        
+        if(!numero){
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtCantKeyTyped
      private void retornarStock(int idArt, int cant, int num) {
          int i=0;
          boolean encontrado = false;
          DefaultTableModel modelo = (DefaultTableModel)tblArticulos.getModel();
         while (i < modelo.getRowCount() && !encontrado){
             if((int)tblArticulos.getValueAt(i, 0)==idArt){
-                int stock=(int)tblArticulos.getValueAt(i, 3);
+                int stock=Integer.valueOf(tblArticulos.getValueAt(i, 4).toString());
                 int nuevo = stock+cant;
-                tblArticulos.setValueAt(nuevo, i, 3);
+                tblArticulos.setValueAt(nuevo, i, 4);
                 DefaultTableModel model = (DefaultTableModel)tblVenta.getModel();
                 model.removeRow(num);
                 double total=0;
+                
                   for(int a=0; a<model.getRowCount(); a++){
-                      total=total+ (double)tblVenta.getValueAt(i, 4);
+                      total=+ Double.valueOf(tblVenta.getValueAt(a, 4).toString());
                   }
                   String tot = String.valueOf(total);
                   txtTotal.setText("$ "+tot);
@@ -621,13 +648,26 @@ public class VistaVentas extends javax.swing.JPanel{
         }
      }
       private void alerta(Articulo art) {
-                JOptionPane.showConfirmDialog(null, "Se registra stock bajo de "
+            JOptionPane optionPane = new JOptionPane("Se registra stock bajo de "
+                 +art.getNombreArticulo() +"\n Puede actualizarlo en 'Ingreso de mercadería'");
+             optionPane.setMessageType(JOptionPane.INFORMATION_MESSAGE);  
+             JDialog dialog = optionPane.createDialog("Alerta de stock");
+            dialog.setAlwaysOnTop(true);
+            dialog.setVisible(true);
+              /*  JOptionPane.showConfirmDialog(null, "Se registra stock bajo de "
                  +art.getNombreArticulo() +"\n Puede actualizarlo en 'Ingreso de mercadería'", 
-                 "Alerta de stock", JOptionPane.INFORMATION_MESSAGE);
+                 "Alerta de stock", JOptionPane.INFORMATION_MESSAGE);*/
     } private void alerta0(Articulo art) {
-                JOptionPane.showConfirmDialog(null, "Ya no cuenta con stock de "
+            JOptionPane optionPane = new JOptionPane("Ya no cuenta con stock de "
+                 +art.getNombreArticulo() +"\n Puede cargarlo en 'Ingreso de mercadería'");
+             optionPane.setMessageType(JOptionPane.INFORMATION_MESSAGE);  
+             JDialog dialog = optionPane.createDialog("Alerta de stock");
+            dialog.setAlwaysOnTop(true);
+            dialog.setVisible(true);
+        
+              /*  JOptionPane.showConfirmDialog(null, "Ya no cuenta con stock de "
                  +art.getNombreArticulo() +"\n Puede cargarlo en 'Ingreso de mercadería'", 
-                 "Alerta de stock", JOptionPane.INFORMATION_MESSAGE);
+                 "Alerta de stock", JOptionPane.INFORMATION_MESSAGE);*/
     }
     private void filtrar(){
         String texto = txtArtic.getText();

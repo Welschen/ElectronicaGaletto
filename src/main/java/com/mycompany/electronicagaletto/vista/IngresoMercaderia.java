@@ -8,6 +8,8 @@ import com.mycompany.electronicagaletto.logica.Usuario;
 
 import com.mycompany.electronicagaletto.persistencia.ControladoraPersistencia;
 import java.awt.Color;
+import java.awt.Font;
+import java.text.DecimalFormat;
 
 import java.util.List;
 
@@ -17,6 +19,7 @@ import javax.swing.RowFilter;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
 import javax.swing.table.TableRowSorter;
 
 
@@ -26,9 +29,8 @@ public class IngresoMercaderia extends javax.swing.JPanel {
     ControladoraPersistencia controlPersis = new ControladoraPersistencia();
     private TableRowSorter<DefaultTableModel> sorter;
     Usuario usr;
-   
-   // DecimalFormat df = new DecimalFormat(".00");
-    public IngresoMercaderia(Usuario usr) {
+    DecimalFormat df = new DecimalFormat("0.00"); 
+      public IngresoMercaderia(Usuario usr) {
         control = new ControladoraLogica();
         this.usr=usr;
         initComponents();
@@ -59,8 +61,9 @@ public class IngresoMercaderia extends javax.swing.JPanel {
     if (listaArticulos!=null){
         for (Articulo arti : listaArticulos) {
             if(arti.isEstado()){
-           // String pre =df.format(arti.getPrecio());
-            Object[] objeto = {arti.getIdArticulo(), arti.getNombreArticulo(),arti.getPrecio(), arti.getStock(),
+            String con =df.format(arti.getPrecio());
+            String sin=con.replace(',', '.');
+            Object[] objeto = {arti.getIdArticulo(), arti.getNombreArticulo(),sin, arti.getStock(),
              arti.getCodBarra()};
             
             datosTabla.addRow(objeto);
@@ -69,6 +72,10 @@ public class IngresoMercaderia extends javax.swing.JPanel {
     }
     
     tblArticulos.setModel(datosTabla);
+    
+    JTableHeader thead = tblArticulos.getTableHeader();
+        thead.setForeground(Color.BLACK);
+        thead.setFont(new Font("Segoe UI", Font.BOLD, 14));
      DefaultTableCellRenderer alinearDerecha = new DefaultTableCellRenderer();
         alinearDerecha.setHorizontalAlignment(SwingConstants.RIGHT);
         DefaultTableCellRenderer alinearCentro = new DefaultTableCellRenderer();
@@ -96,10 +103,14 @@ public class IngresoMercaderia extends javax.swing.JPanel {
                return false; 
             }
     };
-    String titulos[] = {"Identificador", "Nombre", "Precio", "Stock nuevo", "Stock anterior"};
+    String titulos[] = {"Identificador", "Nombre", "Precio", "Stock ingresado","Stock nuevo", "Stock anterior"};
     datosTabla.setColumnIdentifiers(titulos);
   
     tblNuevoStock.setModel(datosTabla);
+    
+    JTableHeader thead = tblNuevoStock.getTableHeader();
+        thead.setForeground(Color.BLACK);
+        thead.setFont(new Font("Segoe UI", Font.BOLD, 14));
      DefaultTableCellRenderer alinearDerecha = new DefaultTableCellRenderer();
         alinearDerecha.setHorizontalAlignment(SwingConstants.RIGHT);
         DefaultTableCellRenderer alinearCentro = new DefaultTableCellRenderer();
@@ -110,9 +121,9 @@ public class IngresoMercaderia extends javax.swing.JPanel {
         tblNuevoStock.getColumnModel().getColumn(0).setCellRenderer(alinearDerecha);
        // tblArticulos.getColumnModel().getColumn(1).setCellRenderer(alinearIzquierda);
         tblNuevoStock.getColumnModel().getColumn(2).setCellRenderer(alinearDerecha);
-        tblNuevoStock.getColumnModel().getColumn(3).setCellRenderer(alinearCentro);
+        tblNuevoStock.getColumnModel().getColumn(3).setCellRenderer(alinearDerecha);
         tblNuevoStock.getColumnModel().getColumn(4).setCellRenderer(alinearDerecha);
-       // tablaClientes.getColumnModel().getColumn(6).setCellRenderer(alinearDerecha);
+        tblNuevoStock.getColumnModel().getColumn(5).setCellRenderer(alinearDerecha);
      }
      
     @SuppressWarnings("unchecked")
@@ -144,7 +155,7 @@ public class IngresoMercaderia extends javax.swing.JPanel {
 
         title.setBackground(new java.awt.Color(255, 255, 255));
         title.setForeground(new java.awt.Color(0, 0, 0));
-        title.setText("Ingreso de mercaderia");
+        title.setText("Ingreso de mercadería");
 
         jLabel2.setBackground(new java.awt.Color(0, 0, 0));
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
@@ -159,11 +170,15 @@ public class IngresoMercaderia extends javax.swing.JPanel {
         txtCant.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
         txtCant.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtCant.setActionCommand("<Not Set>");
-        txtCant.setBorder(null);
         txtCant.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
         txtCant.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtCantActionPerformed(evt);
+            }
+        });
+        txtCant.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtCantKeyTyped(evt);
             }
         });
 
@@ -281,11 +296,11 @@ public class IngresoMercaderia extends javax.swing.JPanel {
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(txtArtic, javax.swing.GroupLayout.DEFAULT_SIZE, 413, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel4)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(txtCant, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(12, 12, 12)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtCant, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnAgregarArt, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -334,14 +349,14 @@ public class IngresoMercaderia extends javax.swing.JPanel {
 
     private void btnAgregarArtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarArtActionPerformed
         int fila = tblArticulos.getSelectedRow();
-        if(fila !=-1){
+        if(fila !=-1 && !txtCant.getText().isEmpty()){
             
             int cant = Integer.parseInt(txtCant.getText());
             int stock =Integer.parseInt(tblArticulos.getValueAt(fila, 3).toString());
             int nuevo = cant+stock;
                         
             Object[] obj = {tblArticulos.getValueAt(fila, 0), tblArticulos.getValueAt(fila, 1),
-            tblArticulos.getValueAt(fila, 2),nuevo, stock};
+            tblArticulos.getValueAt(fila, 2),cant,nuevo, stock};
             
             DefaultTableModel modelo = (DefaultTableModel)tblNuevoStock.getModel();
     
@@ -350,7 +365,7 @@ public class IngresoMercaderia extends javax.swing.JPanel {
             txtCant.setText("1");
             
         }else{
-            JOptionPane optionPane = new JOptionPane("Debe seleccionar un artículo");
+            JOptionPane optionPane = new JOptionPane("Debe seleccionar un artículo y cantidad");
             optionPane.setMessageType(JOptionPane.INFORMATION_MESSAGE);
             JDialog dialog = optionPane.createDialog("Error");
             dialog.setAlwaysOnTop(true);
@@ -367,7 +382,7 @@ public class IngresoMercaderia extends javax.swing.JPanel {
              for (int i=0; i <tblNuevoStock.getRowCount(); i++){
                  //Articulo art =(Articulo) tblVenta.getValueAt(i, 0);
                  int idArt = Integer.parseInt(tblNuevoStock.getValueAt(i, 0).toString());
-                 int nuev =Integer.parseInt(tblNuevoStock.getValueAt(i, 3).toString());
+                 int nuev =Integer.parseInt(tblNuevoStock.getValueAt(i, 4).toString());
                  Articulo art = control.traerArticulo(idArt);
                  control.editStock(art,nuev,usr);
                  
@@ -410,7 +425,15 @@ public class IngresoMercaderia extends javax.swing.JPanel {
         model.removeRow(num);
         
     }//GEN-LAST:event_btnLimpiarUnoActionPerformed
-     
+
+    private void txtCantKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCantKeyTyped
+         int key= evt.getKeyChar();
+        boolean numero = key>= 48 && key<=57;
+        
+        if(!numero){
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtCantKeyTyped
    
     private void filtrar(){
         String texto = txtArtic.getText();
